@@ -7,7 +7,7 @@ async function fetchCSV(path) {
 	const text = await resp.text();
 	// ignore header and empty lines
 	const rows = text.split("\n").filter((line, i) => i > 0 && !!line);
-	const csvArray = rows.map((row) => row.split(","));
+	const csvArray = rows.map((row) => row.trim().split(","));
 	return csvArray;
 }
 
