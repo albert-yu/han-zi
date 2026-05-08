@@ -25,6 +25,26 @@ function findInputs() {
 	return document.querySelectorAll(".han-char input");
 }
 
+/**
+ * Takes a non-accented input (e.g. "hao")
+ * and applies a given accent mark to it
+ * @param {string} input non-accented input ("hao")
+ * @param {number} accent 0-4 (0 being no accent)
+ * @returns {string} accented word (e.g. "hǎo")
+ */
+function applyAccent(input, accent) {
+	// TODO: implement
+	const a = ["ā", "á", "ǎ", "à"];
+	const o = ["ō", "ó", "ǒ", "ò"];
+	const e = ["ē", "é", "ě", "è"];
+	const i = ["ī", "í", "ǐ", "ì"];
+	const u = ["ū", "ú", "ǔ", "ù"];
+	const u1 = ["ǖ", "ǘ", "ǚ", "ǜ"];
+	const u2 = ["ü"];
+
+	let indexOfVowel = 0;
+}
+
 async function main() {
 	const result = await fetchCSV("./phrases/intro.csv");
 	if (result.length === 0) {
