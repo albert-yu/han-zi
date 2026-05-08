@@ -28,17 +28,23 @@ body {
 	align-items: center;
 }
 
-.han-char span {
+.han-display {
 	font-size: 4rem;
 }
 
-.han-char input {
+.pinyin-input-group {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+input {
 	width: 100%;
 	max-width: 50px;
 	font-size: 1rem;
 }
 
-.han-char input.incorrect {
+input.incorrect {
 	border-color: red;
 }
 

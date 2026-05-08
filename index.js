@@ -58,11 +58,14 @@ async function main() {
 		sp.textContent = w;
 		const div = document.createElement("div");
 		div.classList.add("han-char");
-		const input = document.createElement("input");
-		input.type = "text";
-		input.name = pinyinWord;
-		div.appendChild(sp);
-		div.appendChild(input);
+
+		div.innerHTML = `
+      <span class="han-display">${w}</span>
+			<div class="pinyin-input-group">
+ 	      <input type="text" name="${pinyinWord}" >
+ 	      <span>hi</span>
+			</div>
+		`;
 
 		fragment.appendChild(div);
 	}
