@@ -8,6 +8,11 @@ async function fetchCSV(path) {
 }
 
 async function main() {
+	const root = document.querySelector("#app");
+	if (!root) {
+		console.error("could not find #app root");
+		return;
+	}
 	const result = await fetchCSV("./phrases/intro.csv");
 	console.log("csv", result);
 }
