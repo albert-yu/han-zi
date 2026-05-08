@@ -121,16 +121,17 @@ async function main() {
 		// han character
 		const sp = document.createElement("span");
 		sp.textContent = w;
+		sp.classList.add("han-display");
 		const div = document.createElement("div");
 		div.classList.add("han-char");
+		div.appendChild(sp);
 
-		div.innerHTML = `
-      <span class="han-display">${w}</span>
-			<div class="pinyin-input-group">
- 	      <input type="text" name="${pinyinWord}" >
- 	      <span>hi</span>
-			</div>
-		`;
+		const inputGroup = document.createElement("div");
+		const input = document.createElement("input");
+		input.type = "text";
+		input.name = pinyinWord;
+		inputGroup.appendChild(input);
+		div.appendChild(inputGroup);
 
 		fragment.appendChild(div);
 	}
