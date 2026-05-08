@@ -37,7 +37,10 @@ async function main() {
 	const words = han.split("");
 	const pinyinWords = pinyin.split(/\s+/);
 	if (words.length !== pinyinWords.length) {
-		console.error("Got mismatching word counts for pinyin and han");
+		console.error("Got mismatching word counts for pinyin and han", {
+			words,
+			pinyinWords,
+		});
 		return;
 	}
 	for (let i = 0; i < words.length; i++) {
