@@ -29,10 +29,13 @@ function findInputs() {
  * Takes a non-accented input (e.g. "hao")
  * and applies a given accent mark to it
  * @param {string} input non-accented input ("hao")
- * @param {number} accent 0-4 (0 being no accent)
+ * @param {number} accent 0-3
  * @returns {string} accented word (e.g. "hǎo")
  */
 function applyAccent(input, accent) {
+	if (accent < 0 || accent > 3) {
+		throw new Error(`received invalid value for accent: ${accent}`);
+	}
 	// TODO: implement
 	const a = ["ā", "á", "ǎ", "à"];
 	const o = ["ō", "ó", "ǒ", "ò"];
@@ -40,9 +43,51 @@ function applyAccent(input, accent) {
 	const i = ["ī", "í", "ǐ", "ì"];
 	const u = ["ū", "ú", "ǔ", "ù"];
 	const u1 = ["ǖ", "ǘ", "ǚ", "ǜ"];
-	const u2 = ["ü"];
+	// const u2 = ["ü"];
 
-	let indexOfVowel = 0;
+	// disambiguate the vowel we want to apply the
+	// accent to
+	//
+	// alphabet order here is a coincidence
+	const priority = ["a", "e", "i", "o", "u"];
+	for (const vowel of priority) {
+		const indexOfVowel = input.indexOf(vowel);
+		if (indexOfVowel >= 0) {
+			const targetVowel = input[indexOfVowel];
+			let replacement = "";
+			switch (targetVowel) {
+				case "a":
+					replacement = a[accent];
+					break;
+				case "o":
+					replacement = o[accent];
+					break;
+				case "e":
+					replacement = e[accent];
+					break;
+				case "i":
+					replacement = i[accent];
+					break;
+				case "u":
+					replacement = u[accent];
+					break;
+				case "ü":
+					// TODO: handle this correctly
+					replacement = u1[accent];
+					break;
+			}
+			if (replacement) {
+				return (
+					input.slice(0, indexOfVowel) +
+					replacement +
+					input.slice(indexOfVowel + 1)
+				);
+			}
+		}
+	}
+
+	// fall back to original input
+	return input;
 }
 
 async function main() {
