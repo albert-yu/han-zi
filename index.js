@@ -36,7 +36,7 @@ function applyAccent(input, accent) {
 	if (accent < 0 || accent > 3) {
 		throw new Error(`received invalid value for accent: ${accent}`);
 	}
-	// TODO: why don't these get interpreted properly?
+	// TODO: ensure these are encoded properly over the wire
 	const a = ["ā", "á", "ǎ", "à"];
 	const o = ["ō", "ó", "ǒ", "ò"];
 	const e = ["ē", "é", "ě", "è"];
