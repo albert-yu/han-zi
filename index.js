@@ -36,7 +36,7 @@ function applyAccent(input, accent) {
 	if (accent < 0 || accent > 3) {
 		throw new Error(`received invalid value for accent: ${accent}`);
 	}
-	// TODO: implement
+	// TODO: why don't these get interpreted properly?
 	const a = ["ā", "á", "ǎ", "à"];
 	const o = ["ō", "ó", "ǒ", "ò"];
 	const e = ["ē", "é", "ě", "è"];
@@ -127,10 +127,28 @@ async function main() {
 		div.appendChild(sp);
 
 		const inputGroup = document.createElement("div");
+		inputGroup.classList.add("pinyin-input-group");
 		const input = document.createElement("input");
 		input.type = "text";
 		input.name = pinyinWord;
 		inputGroup.appendChild(input);
+
+		const toneBtnGroup = document.createElement("div");
+		toneBtnGroup.classList.add("tones");
+
+		// tone buttons
+		const tones = [0, 1, 2, 3];
+		for (const tone of tones) {
+			const btn = document.createElement("button");
+			btn.innerText = `${tone + 1}`;
+			btn.addEventListener("click", () => {
+				const formatted = applyAccent(input.value, tone);
+				input.value = formatted;
+			});
+			toneBtnGroup.appendChild(btn);
+		}
+		inputGroup.appendChild(toneBtnGroup);
+
 		div.appendChild(inputGroup);
 
 		fragment.appendChild(div);
