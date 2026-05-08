@@ -1,0 +1,31 @@
+body {
+	padding: 2rem;
+}
+
+#han-container {
+	width: 100%;
+	max-width: 600px;
+	padding: 2rem;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 2em;
+}
+
+.han-char {
+	display: flex;
+	flex-direction: column;
+	gap: 1em;
+	width: 100px;
+	align-items: center;
+}
+
+.han-char span {
+	font-size: 4rem;
+}
+
+.han-char input {
+	width: 100%;
+	max-width: 50px;
+	font-size: 1rem;
+}
