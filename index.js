@@ -1,14 +1,15 @@
-async function fetchCSV() {
-	const resp = await fetch("./phrases/intro.csv");
+async function fetchCSV(path) {
+	const resp = await fetch(path);
 	const text = await resp.text();
 	// ignore header and empty lines
 	const rows = text.split("\n").filter((line, i) => i > 0 && !!line);
 	const csvArray = rows.map((row) => row.split(","));
-	console.log("csvArray", csvArray);
+	return csvArray;
 }
 
-function main() {
-	fetchCSV();
+async function main() {
+	const result = await fetchCSV("./phrases/intro.csv");
+	console.log("csv", result);
 }
 
 main();
