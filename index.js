@@ -18,6 +18,13 @@ function getRandomIndex(max) {
 	return Math.floor(Math.random() * max);
 }
 
+/**
+ * @returns {NodeListOf<HTMLInputElement>}
+ */
+function findInputs() {
+	return document.querySelectorAll(".han-char input");
+}
+
 async function main() {
 	const result = await fetchCSV("./phrases/intro.csv");
 	if (result.length === 0) {
@@ -60,6 +67,33 @@ async function main() {
 		fragment.appendChild(div);
 	}
 	container.appendChild(fragment);
+
+	// handle check after input
+	const checkBtn = document.querySelector("button#check");
+	if (!checkBtn) {
+		console.warn("Unable to find check button");
+		return;
+	}
+
+	checkBtn.addEventListener("click", () => {
+		const inputs = findInputs();
+		let ok = true;
+		for (const input of inputs) {
+			const value = input.value.toLowerCase();
+			const expected = input.name;
+			if (value !== expected) {
+				ok = false;
+				input.classList.add("incorrect");
+			} else if (input.classList.contains("incorrect")) {
+				input.classList.remove("incorrect");
+			}
+		}
+		if (ok) {
+			checkBtn.textContent = "OK!";
+		} else {
+			checkBtn.textContent = "Check";
+		}
+	});
 }
 
 main();

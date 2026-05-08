@@ -38,10 +38,14 @@ body {
 	font-size: 1rem;
 }
 
+.han-char input.incorrect {
+	border-color: red;
+}
+
 button#check {
 	font-size: 1rem;
 	background-color: white;
-	border-color: 1px;
+	border-width: 1px;
 	border-radius: 2rem;
 	cursor: pointer;
 	padding: 0.5rem 1rem;
