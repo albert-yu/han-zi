@@ -26,6 +26,15 @@ function findInputs() {
 }
 
 /**
+ * @param {string} s
+ * @returns {string}
+ */
+function removeAccents(s) {
+	const norm = s.normalize("NFD");
+	return norm.replace(/\p{Diacritic}/gu, "");
+}
+
+/**
  * Takes a non-accented input (e.g. "hao")
  * and applies a given accent mark to it
  * @param {string} input non-accented input ("hao")
@@ -51,10 +60,11 @@ function applyAccent(input, accent) {
 	//
 	// alphabet order here is a coincidence
 	const priority = ["a", "e", "i", "o", "u"];
+	const normalizedInput = removeAccents(input);
 	for (const vowel of priority) {
-		const indexOfVowel = input.indexOf(vowel);
+		const indexOfVowel = normalizedInput.indexOf(vowel);
 		if (indexOfVowel >= 0) {
-			const targetVowel = input[indexOfVowel];
+			const targetVowel = normalizedInput[indexOfVowel];
 			let replacement = "";
 			switch (targetVowel) {
 				case "a":
