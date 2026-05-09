@@ -63,3 +63,11 @@ button.primary {
 	flex-direction: row;
 	gap: 0.5rem;
 }
+
+.tones button {
+	font-size: 1rem;
+	padding-top: 0.5rem;
+	background: white;
+	border: 0.5px solid gray;
+	border-radius: 1rem;
+}
