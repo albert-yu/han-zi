@@ -216,6 +216,15 @@ async function main() {
 			input.value = expected;
 		}
 	});
+
+	const refreshBtn = document.querySelector("button#refresh");
+	if (!refreshBtn) {
+		console.warn("Unable to find refresh button");
+		return;
+	}
+	refreshBtn.addEventListener("click", () => {
+		window.location.reload();
+	});
 }
 
 main();
