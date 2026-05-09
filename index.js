@@ -114,6 +114,10 @@ async function main() {
 		console.error("Got empty CSV");
 		return;
 	}
+	const loadingIndicator = document.querySelector("#loading");
+	if (loadingIndicator) {
+		loadingIndicator.remove();
+	}
 	const container = document.querySelector("#han-container");
 	if (!container) {
 		console.error("could not find #han-container");
