@@ -14,8 +14,8 @@ body {
 #han-container {
 	width: 100%;
 	padding: 2rem;
-	display: flex;
-	flex-direction: row;
+	display: grid;
+	grid-template-columns: auto auto auto;
 	align-items: center;
 	gap: 2rem;
 }
@@ -49,12 +49,15 @@ input.incorrect {
 	border-color: red;
 }
 
+button {
+	cursor: pointer;
+}
+
 button.primary {
 	font-size: 1rem;
 	background-color: white;
 	border: 1px solid black;
 	border-radius: 2rem;
-	cursor: pointer;
 	padding: 0.5rem 1rem;
 }
 
@@ -75,5 +78,5 @@ button.primary {
 	padding: 0.5rem;
 	background: white;
 	border: 0.5px solid gray;
-	border-radius: 0.25rem;
+	border-radius: 0.5rem;
 }
