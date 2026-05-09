@@ -189,7 +189,7 @@ async function main() {
 		const inputs = findInputs();
 		let ok = true;
 		for (const input of inputs) {
-			const value = input.value.toLowerCase();
+			const value = input.value.toLowerCase().trim();
 			const expected = input.name;
 			if (value !== expected) {
 				ok = false;
