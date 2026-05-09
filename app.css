@@ -47,8 +47,11 @@ body {
 
 input {
 	width: 100%;
-	max-width: 50px;
-	font-size: 1rem;
+	max-width: 75px;
+	font-size: 1.5rem;
+	border: 1px solid black;
+	border-radius: 1rem;
+	padding: 0.5rem 1rem;
 }
 
 input.incorrect {
@@ -90,9 +93,19 @@ button.secondary {
 
 .tones-button {
 	font-size: 1.5rem;
+	color: gray;
 	padding: 0.5rem;
 	background: white;
 	border: 1px solid gray;
+}
+
+.tones-button + .tones-button {
+	/* Remove left border between buttons */
+	border-left: none;
+}
+
+.tones-button:hover {
+	color: black;
 }
 
 .tones .tones-button:first-child {
@@ -103,9 +116,4 @@ button.secondary {
 .tones .tones-button:last-child {
 	border-top-right-radius: 0.5rem;
 	border-bottom-right-radius: 0.5rem;
-}
-
-.tones-button + .tones-button {
-	/* Remove left border between buttons */
-	border-left: none;
 }
