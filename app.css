@@ -61,7 +61,17 @@ button {
 
 button.primary {
 	font-size: 1rem;
+	background-color: black;
+	color: white;
+	border: 1px solid white;
+	border-radius: 2rem;
+	padding: 0.5rem 1rem;
+}
+
+button.secondary {
+	font-size: 1rem;
 	background-color: white;
+	color: black;
 	border: 1px solid black;
 	border-radius: 2rem;
 	padding: 0.5rem 1rem;
