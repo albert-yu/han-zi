@@ -192,6 +192,19 @@ async function main() {
 			checkBtn.textContent = "Check";
 		}
 	});
+
+	const revealBtn = document.querySelector("button#reveal");
+	if (!revealBtn) {
+		console.warn("Unable to find reveal button");
+		return;
+	}
+	revealBtn.addEventListener("click", () => {
+		const inputs = findInputs();
+		for (const input of inputs) {
+			const expected = input.name;
+			input.value = expected;
+		}
+	});
 }
 
 main();
