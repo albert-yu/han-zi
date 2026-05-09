@@ -17,7 +17,7 @@ body {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	gap: 1rem;
+	gap: 2rem;
 }
 
 .han-char {
@@ -64,10 +64,16 @@ button.primary {
 	gap: 0.5rem;
 }
 
+.tones {
+	display: flex;
+	flex-direction: row;
+	gap: 0.25rem;
+}
+
 .tones button {
-	font-size: 1rem;
-	padding-top: 0.5rem;
+	font-size: 1.5rem;
+	padding: 0.5rem;
 	background: white;
 	border: 0.5px solid gray;
-	border-radius: 1rem;
+	border-radius: 0.25rem;
 }
