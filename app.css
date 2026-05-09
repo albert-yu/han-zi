@@ -93,6 +93,7 @@ button.secondary {
 
 .tones-button {
 	font-size: 1.5rem;
+	width: 30px;
 	color: gray;
 	padding: 0.5rem;
 	background: white;
