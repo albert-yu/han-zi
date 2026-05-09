@@ -1,3 +1,10 @@
+const TONES = {
+	0: "ˉ",
+	1: "ˊ",
+	2: "ˇ",
+	3: "ˋ",
+};
+
 /**
  * @param {string} path
  * @returns {Promise<[string, string][]>}
@@ -151,7 +158,7 @@ async function main() {
 		const tones = [0, 1, 2, 3];
 		for (const tone of tones) {
 			const btn = document.createElement("button");
-			btn.innerText = `${tone + 1}`;
+			btn.innerText = TONES[tone];
 			btn.addEventListener("click", () => {
 				const formatted = applyAccent(input.value, tone);
 				input.value = formatted;
