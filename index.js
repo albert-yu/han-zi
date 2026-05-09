@@ -153,6 +153,9 @@ async function main() {
 		const input = document.createElement("input");
 		input.type = "text";
 		input.name = pinyinWord;
+		input.autocorrect = false;
+		input.autocapitalize = "off";
+		input.autocomplete = "off";
 		inputGroup.appendChild(input);
 
 		const toneBtnGroup = document.createElement("div");
