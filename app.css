@@ -52,7 +52,7 @@ input.incorrect {
 button.primary {
 	font-size: 1rem;
 	background-color: white;
-	border-width: 1px;
+	border: 1px solid black;
 	border-radius: 2rem;
 	cursor: pointer;
 	padding: 0.5rem 1rem;
