@@ -156,6 +156,9 @@ async function main() {
 		input.autocorrect = false;
 		input.autocapitalize = "off";
 		input.autocomplete = "off";
+		if (i === 0) {
+			input.autofocus = true;
+		}
 		inputGroup.appendChild(input);
 
 		const toneBtnGroup = document.createElement("div");
