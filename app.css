@@ -86,13 +86,26 @@ button.secondary {
 .tones {
 	display: flex;
 	flex-direction: row;
-	gap: 0.25rem;
 }
 
-.tones button {
+.tones-button {
 	font-size: 1.5rem;
 	padding: 0.5rem;
 	background: white;
-	border: 0.5px solid gray;
-	border-radius: 0.5rem;
+	border: 1px solid gray;
+}
+
+.tones .tones-button:first-child {
+	border-top-left-radius: 0.5rem;
+	border-bottom-left-radius: 0.5rem;
+}
+
+.tones .tones-button:last-child {
+	border-top-right-radius: 0.5rem;
+	border-bottom-right-radius: 0.5rem;
+}
+
+.tones-button + .tones-button {
+	/* Remove left border between buttons */
+	border-left: none;
 }

@@ -162,6 +162,7 @@ async function main() {
 		const tones = [0, 1, 2, 3];
 		for (const tone of tones) {
 			const btn = document.createElement("button");
+			btn.classList.add("tones-button");
 			btn.innerText = TONES[tone];
 			btn.addEventListener("click", () => {
 				const formatted = applyAccent(input.value, tone);
