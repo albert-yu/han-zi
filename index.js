@@ -36,7 +36,8 @@ function applyAccent(input, accent) {
 	if (accent < 0 || accent > 3) {
 		throw new Error(`received invalid value for accent: ${accent}`);
 	}
-	// TODO: ensure these are encoded properly over the wire
+	// For some reason, if the <script> tag doesn't have
+	// type="module", these latin chars will get jumbled
 	const a = ["ā", "á", "ǎ", "à"];
 	const o = ["ō", "ó", "ǒ", "ò"];
 	const e = ["ē", "é", "ě", "è"];
