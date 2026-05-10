@@ -148,7 +148,6 @@ function renderQuizlet(container, selection) {
 		});
 		return;
 	}
-	clearChildren(container);
 	for (let i = 0; i < words.length; i++) {
 		const w = words[i];
 		const pinyinWord = pinyinWords[i];
@@ -198,20 +197,24 @@ function renderQuizlet(container, selection) {
 }
 
 /**
+ * @param {HTMLElement} container
  * @param {string} currentlySelected the currently
  * selected list query
  */
-function activateListSelect(currentlySelected) {
+function activateListSelect(container, currentlySelected) {
 	const listSelect = getListSelect();
 	if (!listSelect) {
 		console.warn("Unable to find select#lists");
 		return;
 	}
-	listSelect.addEventListener("change", function () {
+	listSelect.addEventListener("change", async function () {
 		const value = this.value;
-		const queryParams = new URLSearchParams();
-		queryParams.set("list", value);
-		window.location.search = queryParams.toString();
+		history.pushState(value, null, `?list=${value}`);
+		setLoading(container, true);
+		setLoading(container, false);
+		// const queryParams = new URLSearchParams();
+		// queryParams.set("list", value);
+		// window.location.search = queryParams.toString();
 	});
 	listSelect.value = currentlySelected;
 }
@@ -233,37 +236,34 @@ function renderVocabList(container, csv) {
 }
 
 /**
+ * @param {HTMLElement} container
  * @param {boolean} state
  */
-function setLoading(state) {
-	const loadingIndicator = document.querySelector("#loading");
-
-	if (!loadingIndicator) {
-		return;
-	}
+function setLoading(container, state) {
 	if (state) {
-		loadingIndicator.classList.remove("hidden");
+		container.innerHTML = `<span id="loading">Loading...</span>`;
 	} else {
-		loadingIndicator.classList.add("hidden");
+		clearChildren(container);
 	}
 }
 
 async function main() {
-	const search = new URLSearchParams(window.location.search);
-	const listParam = search.get("list");
-	const list = LISTS.find((l) => l.query === listParam) ?? LISTS[0];
-	activateListSelect(list.query);
-	const result = await fetchCSV(list.path);
-	if (result.length === 0) {
-		console.error("Got empty CSV");
-		return;
-	}
-	setLoading(false);
 	const container = document.querySelector("#han-container");
 	if (!container) {
 		console.error("could not find #han-container");
 		return;
 	}
+	const search = new URLSearchParams(window.location.search);
+	const listParam = search.get("list");
+	const list = LISTS.find((l) => l.query === listParam) ?? LISTS[0];
+	activateListSelect(container, list.query);
+	setLoading(container, true);
+	const result = await fetchCSV(list.path);
+	if (result.length === 0) {
+		console.error("Got empty CSV");
+		return;
+	}
+	setLoading(container, false);
 	renderVocabList(container, result);
 
 	const checkBtn = document.querySelector("button#check");
@@ -312,6 +312,7 @@ async function main() {
 	}
 	refreshBtn.addEventListener("click", () => {
 		const index = getRandomIndex(result.length);
+		clearChildren(container);
 		renderQuizlet(container, result[index]);
 		checkBtn.textContent = "Check";
 	});
