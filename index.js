@@ -259,11 +259,11 @@ async function main() {
 	activateListSelect(container, list.query);
 	setLoading(container, true);
 	const result = await fetchCSV(list.path);
+	setLoading(container, false);
 	if (result.length === 0) {
-		console.error("Got empty CSV");
+		container.innerHTML = `Error: got empty CSV`;
 		return;
 	}
-	setLoading(container, false);
 	renderVocabList(container, result);
 
 	const checkBtn = document.querySelector("button#check");
