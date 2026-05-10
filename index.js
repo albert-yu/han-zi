@@ -197,6 +197,13 @@ function renderQuizlet(container, selection) {
 	container.appendChild(fragment);
 }
 
+/**
+ * @returns {HTMLSelectElement | null}
+ */
+function getListSelect() {
+	return document.querySelector("select#lists");
+}
+
 async function main() {
 	const search = new URLSearchParams(window.location.search);
 	const listParam = search.get("list");
@@ -267,6 +274,33 @@ async function main() {
 		renderQuizlet(container, result[index]);
 		checkBtn.textContent = "Check";
 	});
+
+	// populate select options for lists
+	const listSelect = getListSelect();
+	if (!listSelect) {
+		console.warn("Unable to find select#lists");
+		return;
+	}
+	const optionsFragment = document.createDocumentFragment();
+	for (const option of LISTS) {
+		const optElement = document.createElement("option");
+		optElement.value = option.query;
+		optElement.innerText = option.name;
+		optionsFragment.appendChild(optElement);
+	}
+	listSelect.appendChild(optionsFragment);
+	listSelect.addEventListener("change", function () {
+		const value = this.value;
+		const matching = LISTS.find((list) => list.query === value);
+		if (!matching) {
+			console.warn("could not find matching option for", value);
+			return;
+		}
+		const queryParams = new URLSearchParams();
+		queryParams.set("list", matching.query);
+		window.location.search = queryParams.toString();
+	});
+	listSelect.value = list.query;
 }
 
 main();
