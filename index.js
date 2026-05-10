@@ -201,29 +201,16 @@ function renderQuizlet(container, selection) {
  * @param {string} currentlySelected the currently
  * selected list query
  */
-function populateListSelect(currentlySelected) {
+function activateListSelect(currentlySelected) {
 	const listSelect = getListSelect();
 	if (!listSelect) {
 		console.warn("Unable to find select#lists");
 		return;
 	}
-	const optionsFragment = document.createDocumentFragment();
-	for (const option of LISTS) {
-		const optElement = document.createElement("option");
-		optElement.value = option.query;
-		optElement.innerText = option.name;
-		optionsFragment.appendChild(optElement);
-	}
-	listSelect.appendChild(optionsFragment);
 	listSelect.addEventListener("change", function () {
 		const value = this.value;
-		const matching = LISTS.find((list) => list.query === value);
-		if (!matching) {
-			console.warn("could not find matching option for", value);
-			return;
-		}
 		const queryParams = new URLSearchParams();
-		queryParams.set("list", matching.query);
+		queryParams.set("list", value);
 		window.location.search = queryParams.toString();
 	});
 	listSelect.value = currentlySelected;
@@ -240,6 +227,7 @@ async function main() {
 	const search = new URLSearchParams(window.location.search);
 	const listParam = search.get("list");
 	const list = LISTS.find((l) => l.query === listParam) ?? LISTS[0];
+	activateListSelect(list.query);
 	const result = await fetchCSV(list.path);
 	if (result.length === 0) {
 		console.error("Got empty CSV");
@@ -306,8 +294,6 @@ async function main() {
 		renderQuizlet(container, result[index]);
 		checkBtn.textContent = "Check";
 	});
-
-	populateListSelect(list.query);
 }
 
 main();
