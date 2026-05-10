@@ -121,26 +121,12 @@ const LISTS = [
 	},
 ];
 
-async function main() {
-	const search = new URLSearchParams(window.location.search);
-	const listParam = search.get("list");
-	const list = LISTS.find((l) => l.query === listParam) ?? LISTS[0];
-	const result = await fetchCSV(list.path);
-	if (result.length === 0) {
-		console.error("Got empty CSV");
-		return;
-	}
-	const loadingIndicator = document.querySelector("#loading");
-	if (loadingIndicator) {
-		loadingIndicator.remove();
-	}
-	const container = document.querySelector("#han-container");
-	if (!container) {
-		console.error("could not find #han-container");
-		return;
-	}
-	const randomIndex = getRandomIndex(result.length);
-	const [han, pinyin] = result[randomIndex];
+/**
+ * @param {HTMLElement} container
+ * @param {[string, string][]} selection
+ */
+function renderQuizlet(container, selection) {
+	const [han, pinyin] = selection;
 
 	// add elements to DOM
 	const fragment = document.createDocumentFragment();
@@ -199,8 +185,29 @@ async function main() {
 		fragment.appendChild(div);
 	}
 	container.appendChild(fragment);
+}
 
-	// handle check after input
+async function main() {
+	const search = new URLSearchParams(window.location.search);
+	const listParam = search.get("list");
+	const list = LISTS.find((l) => l.query === listParam) ?? LISTS[0];
+	const result = await fetchCSV(list.path);
+	if (result.length === 0) {
+		console.error("Got empty CSV");
+		return;
+	}
+	const loadingIndicator = document.querySelector("#loading");
+	if (loadingIndicator) {
+		loadingIndicator.remove();
+	}
+	const container = document.querySelector("#han-container");
+	if (!container) {
+		console.error("could not find #han-container");
+		return;
+	}
+	const randomIndex = getRandomIndex(result.length);
+	renderQuizlet(container, result[randomIndex]);
+
 	const checkBtn = document.querySelector("button#check");
 	if (!checkBtn) {
 		console.warn("Unable to find check button");
