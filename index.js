@@ -122,6 +122,15 @@ const LISTS = [
 ];
 
 /**
+ * @param {HTMLElement} parent
+ */
+function clearChildren(parent) {
+	while (parent.firstChild) {
+		parent.removeChild(parent.firstChild);
+	}
+}
+
+/**
  * @param {HTMLElement} container
  * @param {[string, string][]} selection
  */
@@ -139,6 +148,7 @@ function renderQuizlet(container, selection) {
 		});
 		return;
 	}
+	clearChildren(container);
 	for (let i = 0; i < words.length; i++) {
 		const w = words[i];
 		const pinyinWord = pinyinWords[i];
@@ -253,7 +263,9 @@ async function main() {
 		return;
 	}
 	refreshBtn.addEventListener("click", () => {
-		window.location.reload();
+		const index = getRandomIndex(result.length);
+		renderQuizlet(container, result[index]);
+		checkBtn.textContent = "Check";
 	});
 }
 
