@@ -198,6 +198,38 @@ function renderQuizlet(container, selection) {
 }
 
 /**
+ * @param {string} currentlySelected the currently
+ * selected list query
+ */
+function populateListSelect(currentlySelected) {
+	const listSelect = getListSelect();
+	if (!listSelect) {
+		console.warn("Unable to find select#lists");
+		return;
+	}
+	const optionsFragment = document.createDocumentFragment();
+	for (const option of LISTS) {
+		const optElement = document.createElement("option");
+		optElement.value = option.query;
+		optElement.innerText = option.name;
+		optionsFragment.appendChild(optElement);
+	}
+	listSelect.appendChild(optionsFragment);
+	listSelect.addEventListener("change", function () {
+		const value = this.value;
+		const matching = LISTS.find((list) => list.query === value);
+		if (!matching) {
+			console.warn("could not find matching option for", value);
+			return;
+		}
+		const queryParams = new URLSearchParams();
+		queryParams.set("list", matching.query);
+		window.location.search = queryParams.toString();
+	});
+	listSelect.value = currentlySelected;
+}
+
+/**
  * @returns {HTMLSelectElement | null}
  */
 function getListSelect() {
@@ -275,32 +307,7 @@ async function main() {
 		checkBtn.textContent = "Check";
 	});
 
-	// populate select options for lists
-	const listSelect = getListSelect();
-	if (!listSelect) {
-		console.warn("Unable to find select#lists");
-		return;
-	}
-	const optionsFragment = document.createDocumentFragment();
-	for (const option of LISTS) {
-		const optElement = document.createElement("option");
-		optElement.value = option.query;
-		optElement.innerText = option.name;
-		optionsFragment.appendChild(optElement);
-	}
-	listSelect.appendChild(optionsFragment);
-	listSelect.addEventListener("change", function () {
-		const value = this.value;
-		const matching = LISTS.find((list) => list.query === value);
-		if (!matching) {
-			console.warn("could not find matching option for", value);
-			return;
-		}
-		const queryParams = new URLSearchParams();
-		queryParams.set("list", matching.query);
-		window.location.search = queryParams.toString();
-	});
-	listSelect.value = list.query;
+	populateListSelect(list.query);
 }
 
 main();
