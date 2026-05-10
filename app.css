@@ -137,3 +137,7 @@ button#check {
 		flex-direction: row;
 	}
 }
+
+.hidden {
+	display: none;
+}

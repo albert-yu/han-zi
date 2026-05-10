@@ -223,6 +223,31 @@ function getListSelect() {
 	return document.querySelector("select#lists");
 }
 
+/**
+ * @param {HTMLElement} container
+ * @param {[string, string][]} csv
+ */
+function renderVocabList(container, csv) {
+	const randomIndex = getRandomIndex(csv.length);
+	renderQuizlet(container, csv[randomIndex]);
+}
+
+/**
+ * @param {boolean} state
+ */
+function setLoading(state) {
+	const loadingIndicator = document.querySelector("#loading");
+
+	if (!loadingIndicator) {
+		return;
+	}
+	if (state) {
+		loadingIndicator.classList.remove("hidden");
+	} else {
+		loadingIndicator.classList.add("hidden");
+	}
+}
+
 async function main() {
 	const search = new URLSearchParams(window.location.search);
 	const listParam = search.get("list");
@@ -233,17 +258,13 @@ async function main() {
 		console.error("Got empty CSV");
 		return;
 	}
-	const loadingIndicator = document.querySelector("#loading");
-	if (loadingIndicator) {
-		loadingIndicator.remove();
-	}
+	setLoading(false);
 	const container = document.querySelector("#han-container");
 	if (!container) {
 		console.error("could not find #han-container");
 		return;
 	}
-	const randomIndex = getRandomIndex(result.length);
-	renderQuizlet(container, result[randomIndex]);
+	renderVocabList(container, result);
 
 	const checkBtn = document.querySelector("button#check");
 	if (!checkBtn) {
