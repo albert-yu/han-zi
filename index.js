@@ -203,6 +203,20 @@ function activateListSelect(container, currentlySelected) {
 			fetchAndRenderQuizlet(container, path);
 		}
 	});
+
+	window.addEventListener("popstate", (e) => {
+		if (!e.state) {
+			return;
+		}
+		const { path, value } = e.state;
+		const select = getListSelect();
+		if (select) {
+			select.value = value;
+		}
+		if (path) {
+			fetchAndRenderQuizlet(container, path);
+		}
+	});
 	listSelect.value = currentlySelected;
 }
 
@@ -252,9 +266,10 @@ async function main() {
 	const selectedOption =
 		document.querySelector(`select#lists option[value="${listParam}"]`) ??
 		document.querySelector(`select#lists:first-child`);
-	const query = selectedOption.getAttribute("value");
+	const value = selectedOption.getAttribute("value");
 	const path = selectedOption.getAttribute("path");
-	activateListSelect(container, query);
+	history.pushState({ value, path }, null, `?list=${value}`);
+	activateListSelect(container, value);
 	await fetchAndRenderQuizlet(container, path);
 
 	const checkBtn = document.querySelector("button#check");
