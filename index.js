@@ -108,8 +108,24 @@ function applyAccent(input, accent) {
 	return input;
 }
 
+const LISTS = [
+	{
+		query: "intro",
+		name: "Intro",
+		path: "./phrases/intro.csv",
+	},
+	{
+		query: "numbers",
+		name: "Numbers",
+		path: "./phrases/numbers.csv",
+	},
+];
+
 async function main() {
-	const result = await fetchCSV("./phrases/intro.csv");
+	const search = new URLSearchParams(window.location.search);
+	const listParam = search.get("list");
+	const list = LISTS.find((l) => l.query === listParam) ?? LISTS[0];
+	const result = await fetchCSV(list.path);
 	if (result.length === 0) {
 		console.error("Got empty CSV");
 		return;
