@@ -108,19 +108,6 @@ function applyAccent(input, accent) {
 	return input;
 }
 
-const LISTS = [
-	{
-		query: "intro",
-		name: "Intro",
-		path: "./phrases/intro.csv",
-	},
-	{
-		query: "numbers",
-		name: "Numbers",
-		path: "./phrases/numbers.csv",
-	},
-];
-
 /**
  * @param {HTMLElement} parent
  */
@@ -207,14 +194,14 @@ function activateListSelect(container, currentlySelected) {
 		console.warn("Unable to find select#lists");
 		return;
 	}
-	listSelect.addEventListener("change", async function () {
+	listSelect.addEventListener("change", function () {
 		const value = this.value;
-		history.pushState(value, null, `?list=${value}`);
-		setLoading(container, true);
-		setLoading(container, false);
-		// const queryParams = new URLSearchParams();
-		// queryParams.set("list", value);
-		// window.location.search = queryParams.toString();
+		const selected = this.selectedOptions[0];
+		const path = selected.getAttribute("path");
+		history.pushState({ value, path }, null, `?list=${value}`);
+		if (path) {
+			fetchAndRenderQuizlet(container, path);
+		}
 	});
 	listSelect.value = currentlySelected;
 }
@@ -224,15 +211,6 @@ function activateListSelect(container, currentlySelected) {
  */
 function getListSelect() {
 	return document.querySelector("select#lists");
-}
-
-/**
- * @param {HTMLElement} container
- * @param {[string, string][]} csv
- */
-function renderVocabList(container, csv) {
-	const randomIndex = getRandomIndex(csv.length);
-	renderQuizlet(container, csv[randomIndex]);
 }
 
 /**
@@ -247,6 +225,22 @@ function setLoading(container, state) {
 	}
 }
 
+/**
+ * @param {HTMLElement} container
+ * @param {string} path
+ */
+async function fetchAndRenderQuizlet(container, path) {
+	setLoading(container, true);
+	const result = await fetchCSV(path);
+	setLoading(container, false);
+	if (result.length === 0) {
+		container.innerHTML = `Error: got empty CSV`;
+		return;
+	}
+	const randomIndex = getRandomIndex(result.length);
+	renderQuizlet(container, result[randomIndex]);
+}
+
 async function main() {
 	const container = document.querySelector("#han-container");
 	if (!container) {
@@ -255,16 +249,13 @@ async function main() {
 	}
 	const search = new URLSearchParams(window.location.search);
 	const listParam = search.get("list");
-	const list = LISTS.find((l) => l.query === listParam) ?? LISTS[0];
-	activateListSelect(container, list.query);
-	setLoading(container, true);
-	const result = await fetchCSV(list.path);
-	setLoading(container, false);
-	if (result.length === 0) {
-		container.innerHTML = `Error: got empty CSV`;
-		return;
-	}
-	renderVocabList(container, result);
+	const selectedOption =
+		document.querySelector(`select#lists option[value="${listParam}"]`) ??
+		document.querySelector(`select#lists:first-child`);
+	const query = selectedOption.getAttribute("value");
+	const path = selectedOption.getAttribute("path");
+	activateListSelect(container, query);
+	await fetchAndRenderQuizlet(container, path);
 
 	const checkBtn = document.querySelector("button#check");
 	if (!checkBtn) {
