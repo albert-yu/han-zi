@@ -74,6 +74,19 @@ button.secondary {
 	padding: 0.5rem 1rem;
 }
 
+button.btn-link {
+	background: none;
+	border: none;
+	color: #0000ee;
+	text-decoration: none;
+	padding: 0.5rem 0.75rem;
+	font-size: 1rem;
+}
+
+button.btn-link:hover {
+	text-decoration: underline;
+}
+
 button.ok {
 	/* TODO: better green color */
 	background-color: rgb(0, 124, 80);
