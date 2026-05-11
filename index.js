@@ -266,11 +266,14 @@ async function fetchAndRenderQuizlet(container, path) {
 		console.warn("Unable to find refresh button");
 		return;
 	}
+	const checkBtn = queryButton("button#check");
 	refreshBtn.onclick = () => {
 		const index = getRandomIndex(result.length);
 		clearChildren(container);
 		renderQuizlet(container, result[index]);
-		checkBtn.textContent = "Check";
+		if (checkBtn) {
+			checkBtn.textContent = "Check";
+		}
 	};
 }
 
