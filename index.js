@@ -257,10 +257,14 @@ function setLoading(container, state) {
 
 /**
  * @param {string} selector
- * @returns {HTMLButtonElement | null}
+ * @returns {HTMLButtonElement}
  */
-function queryButton(selector) {
-	return document.querySelector(selector);
+function queryButtonOrThrow(selector) {
+	const btn = document.querySelector(selector);
+	if (!btn) {
+		throw new Error(`Could not find button with selector ${selector}`);
+	}
+	return btn;
 }
 
 /**
@@ -298,20 +302,14 @@ async function fetchAndRenderQuizlet(container, path) {
 		return;
 	}
 	renderQuizlet(container, STATE.rows[STATE.index]);
-	const shuffleBtn = queryButton("button#shuffle");
-	if (!shuffleBtn) {
-		console.warn("Unable to find shuffle button");
-		return;
-	}
-	const checkBtn = queryButton("button#check");
+	const shuffleBtn = queryButtonOrThrow("button#shuffle");
+	const checkBtn = queryButtonOrThrow("button#check");
 	shuffleBtn.onclick = () => {
 		STATE.rows = shuffle(result);
 		STATE.index = 0;
 		clearChildren(container);
 		renderQuizlet(container, STATE.rows[STATE.index]);
-		if (checkBtn) {
-			checkBtn.textContent = "Check";
-		}
+		checkBtn.textContent = "Check";
 	};
 }
 
@@ -334,12 +332,7 @@ async function main() {
 	activateListSelect(container, value);
 	await fetchAndRenderQuizlet(container, path);
 
-	const checkBtn = queryButton("button#check");
-	if (!checkBtn) {
-		console.warn("Unable to find check button");
-		return;
-	}
-
+	const checkBtn = queryButtonOrThrow("button#check");
 	checkBtn.onclick = () => {
 		const inputs = findInputs();
 		let ok = true;
@@ -360,11 +353,7 @@ async function main() {
 		}
 	};
 
-	const revealBtn = queryButton("button#reveal");
-	if (!revealBtn) {
-		console.warn("Unable to find reveal button");
-		return;
-	}
+	const revealBtn = queryButtonOrThrow("button#reveal");
 	revealBtn.onclick = () => {
 		const inputs = findInputs();
 		for (const input of inputs) {
