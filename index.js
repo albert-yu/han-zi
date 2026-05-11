@@ -261,13 +261,13 @@ async function fetchAndRenderQuizlet(container, path) {
 	}
 	const randomIndex = getRandomIndex(result.length);
 	renderQuizlet(container, result[randomIndex]);
-	const refreshBtn = queryButton("button#refresh");
-	if (!refreshBtn) {
-		console.warn("Unable to find refresh button");
+	const shuffleBtn = queryButton("button#shuffle");
+	if (!shuffleBtn) {
+		console.warn("Unable to find shuffle button");
 		return;
 	}
 	const checkBtn = queryButton("button#check");
-	refreshBtn.onclick = () => {
+	shuffleBtn.onclick = () => {
 		const index = getRandomIndex(result.length);
 		clearChildren(container);
 		renderQuizlet(container, result[index]);
