@@ -242,6 +242,7 @@ function setLoading(container, state) {
 /**
  * @param {HTMLElement} container
  * @param {string} path
+ * @returns {Promise<[string, string][]>}
  */
 async function fetchAndRenderQuizlet(container, path) {
 	setLoading(container, true);
@@ -253,6 +254,7 @@ async function fetchAndRenderQuizlet(container, path) {
 	}
 	const randomIndex = getRandomIndex(result.length);
 	renderQuizlet(container, result[randomIndex]);
+	return result;
 }
 
 async function main() {
@@ -272,7 +274,7 @@ async function main() {
 	const path = selectedOption.getAttribute("path");
 	history.pushState({ value, path }, null, `?list=${value}`);
 	activateListSelect(container, value);
-	await fetchAndRenderQuizlet(container, path);
+	const result = await fetchAndRenderQuizlet(container, path);
 
 	const checkBtn = document.querySelector("button#check");
 	if (!checkBtn) {
