@@ -136,6 +136,16 @@ button.ok {
 	padding: 0.5rem;
 	background: white;
 	border: 1px solid gray;
+	box-shadow: 0 4px 0 #ccc;
+	transition: all 0.1s;
+	position: relative;
+	top: 0;
+	margin-bottom: 4px; /* Space for the shadow */
+}
+
+.tones-button:active {
+	top: 2px;
+	box-shadow: 0 2px 0 #ccc;
 }
 
 .tones-button + .tones-button {
