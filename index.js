@@ -287,6 +287,14 @@ function shuffle(arr) {
 	return newArr;
 }
 
+function updateProgress() {
+	const progressElement = document.querySelector("#progress");
+	if (!progressElement) {
+		throw new Error("Missing progress element");
+	}
+	progressElement.innerText = `${STATE.index + 1} / ${STATE.rows.length}`;
+}
+
 /**
  * @param {HTMLElement} container
  * @param {string} path
@@ -302,14 +310,31 @@ async function fetchAndRenderQuizlet(container, path) {
 		return;
 	}
 	renderQuizlet(container, STATE.rows[STATE.index]);
+	updateProgress();
+
+	const updateUI = () => {
+		clearChildren(container);
+		renderQuizlet(container, STATE.rows[STATE.index]);
+		updateProgress();
+		checkBtn.textContent = "Check";
+	};
 	const shuffleBtn = queryButtonOrThrow("button#shuffle");
 	const checkBtn = queryButtonOrThrow("button#check");
 	shuffleBtn.onclick = () => {
 		STATE.rows = shuffle(result);
 		STATE.index = 0;
-		clearChildren(container);
-		renderQuizlet(container, STATE.rows[STATE.index]);
-		checkBtn.textContent = "Check";
+		updateUI();
+	};
+
+	const prevBtn = queryButtonOrThrow("button#prev");
+	prevBtn.onclick = () => {
+		STATE.index = Math.max(0, STATE.index - 1);
+		updateUI();
+	};
+	const nextBtn = queryButtonOrThrow("button#next");
+	nextBtn.onclick = () => {
+		STATE.index = Math.min(STATE.rows.length - 1, STATE.index + 1);
+		updateUI();
 	};
 }
 
