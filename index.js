@@ -263,9 +263,11 @@ async function main() {
 	}
 	const search = new URLSearchParams(window.location.search);
 	const listParam = search.get("list");
-	const selectedOption =
-		document.querySelector(`select#lists option[value="${listParam}"]`) ??
-		document.querySelector(`select#lists:first-child`);
+	const matchingOption = document.querySelector(
+		`select#lists option[value="${listParam}"]`,
+	);
+	const fallback = document.querySelector(`select#lists option`);
+	const selectedOption = matchingOption ?? fallback;
 	const value = selectedOption.getAttribute("value");
 	const path = selectedOption.getAttribute("path");
 	history.pushState({ value, path }, null, `?list=${value}`);
