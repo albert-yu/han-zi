@@ -75,8 +75,9 @@ button.secondary {
 }
 
 button.ok {
-	background-color: green;
-	border: 1px solid green;
+	/* TODO: better green color */
+	background-color: rgb(0, 124, 80);
+	border: 1px solid rgb(0, 124, 80);
 }
 
 .actions {
