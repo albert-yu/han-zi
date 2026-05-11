@@ -6,6 +6,22 @@ const TONES = {
 };
 
 /**
+ * Application state
+ */
+const STATE = {
+	/**
+	 * @type [string, string][]
+	 */
+	rows: [],
+
+	/**
+	 * The index into the rows
+	 * @type number
+	 */
+	index: 0,
+};
+
+/**
  * @param {string} path
  * @returns {Promise<[string, string][]>}
  */
@@ -248,6 +264,26 @@ function queryButton(selector) {
 }
 
 /**
+ * @param {T[]} arr
+ * @returns {T[]}
+ */
+function shuffle(arr) {
+	// TODO: can use better prime for randomization
+	const PRIME = 91;
+	const startIndex = getRandomIndex(arr.length);
+	let i = startIndex;
+
+	const newArr = [];
+	newArr.push(arr[i]);
+	i = (i + PRIME) % arr.length;
+	while (i !== startIndex) {
+		newArr.push(arr[i]);
+		i = (i + PRIME) % arr.length;
+	}
+	return newArr;
+}
+
+/**
  * @param {HTMLElement} container
  * @param {string} path
  */
@@ -255,12 +291,13 @@ async function fetchAndRenderQuizlet(container, path) {
 	setLoading(container, true);
 	const result = await fetchCSV(path);
 	setLoading(container, false);
+	STATE.rows = shuffle(result);
+	STATE.index = 0;
 	if (result.length === 0) {
 		container.innerHTML = `Error: got empty CSV`;
 		return;
 	}
-	const randomIndex = getRandomIndex(result.length);
-	renderQuizlet(container, result[randomIndex]);
+	renderQuizlet(container, STATE.rows[STATE.index]);
 	const shuffleBtn = queryButton("button#shuffle");
 	if (!shuffleBtn) {
 		console.warn("Unable to find shuffle button");
@@ -268,9 +305,10 @@ async function fetchAndRenderQuizlet(container, path) {
 	}
 	const checkBtn = queryButton("button#check");
 	shuffleBtn.onclick = () => {
-		const index = getRandomIndex(result.length);
+		STATE.rows = shuffle(result);
+		STATE.index = 0;
 		clearChildren(container);
-		renderQuizlet(container, result[index]);
+		renderQuizlet(container, STATE.rows[STATE.index]);
 		if (checkBtn) {
 			checkBtn.textContent = "Check";
 		}
