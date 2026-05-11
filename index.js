@@ -240,9 +240,16 @@ function setLoading(container, state) {
 }
 
 /**
+ * @param {string} selector
+ * @returns {HTMLButtonElement | null}
+ */
+function queryButton(selector) {
+	return document.querySelector(selector);
+}
+
+/**
  * @param {HTMLElement} container
  * @param {string} path
- * @returns {Promise<[string, string][]>}
  */
 async function fetchAndRenderQuizlet(container, path) {
 	setLoading(container, true);
@@ -254,7 +261,17 @@ async function fetchAndRenderQuizlet(container, path) {
 	}
 	const randomIndex = getRandomIndex(result.length);
 	renderQuizlet(container, result[randomIndex]);
-	return result;
+	const refreshBtn = queryButton("button#refresh");
+	if (!refreshBtn) {
+		console.warn("Unable to find refresh button");
+		return;
+	}
+	refreshBtn.onclick = () => {
+		const index = getRandomIndex(result.length);
+		clearChildren(container);
+		renderQuizlet(container, result[index]);
+		checkBtn.textContent = "Check";
+	};
 }
 
 async function main() {
@@ -274,15 +291,15 @@ async function main() {
 	const path = selectedOption.getAttribute("path");
 	history.pushState({ value, path }, null, `?list=${value}`);
 	activateListSelect(container, value);
-	const result = await fetchAndRenderQuizlet(container, path);
+	await fetchAndRenderQuizlet(container, path);
 
-	const checkBtn = document.querySelector("button#check");
+	const checkBtn = queryButton("button#check");
 	if (!checkBtn) {
 		console.warn("Unable to find check button");
 		return;
 	}
 
-	checkBtn.addEventListener("click", () => {
+	checkBtn.onclick = () => {
 		const inputs = findInputs();
 		let ok = true;
 		for (const input of inputs) {
@@ -300,32 +317,20 @@ async function main() {
 		} else {
 			checkBtn.textContent = "Check";
 		}
-	});
+	};
 
-	const revealBtn = document.querySelector("button#reveal");
+	const revealBtn = queryButton("button#reveal");
 	if (!revealBtn) {
 		console.warn("Unable to find reveal button");
 		return;
 	}
-	revealBtn.addEventListener("click", () => {
+	revealBtn.onclick = () => {
 		const inputs = findInputs();
 		for (const input of inputs) {
 			const expected = input.name;
 			input.value = expected;
 		}
-	});
-
-	const refreshBtn = document.querySelector("button#refresh");
-	if (!refreshBtn) {
-		console.warn("Unable to find refresh button");
-		return;
-	}
-	refreshBtn.addEventListener("click", () => {
-		const index = getRandomIndex(result.length);
-		clearChildren(container);
-		renderQuizlet(container, result[index]);
-		checkBtn.textContent = "Check";
-	});
+	};
 }
 
 main();
