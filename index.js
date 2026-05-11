@@ -272,17 +272,10 @@ function queryButtonOrThrow(selector) {
  * @returns {T[]}
  */
 function shuffle(arr) {
-	// TODO: can use better prime for randomization
-	const PRIME = 91;
-	const startIndex = getRandomIndex(arr.length);
-	let i = startIndex;
-
-	const newArr = [];
-	newArr.push(arr[i]);
-	i = (i + PRIME) % arr.length;
-	while (i !== startIndex) {
-		newArr.push(arr[i]);
-		i = (i + PRIME) % arr.length;
+	const newArr = [...arr];
+	for (let i = newArr.length - 1; i > 0; i--) {
+		const j = Math.floor(Math.random() * (i + 1));
+		[newArr[i], newArr[j]] = [newArr[j], newArr[i]];
 	}
 	return newArr;
 }
