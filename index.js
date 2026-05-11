@@ -296,6 +296,14 @@ function updateProgress() {
 }
 
 /**
+ * @param {HTMLButtonElement} checkBtn
+ */
+function resetCheckBtn(checkBtn) {
+	checkBtn.textContent = "Check";
+	checkBtn.classList.remove("ok");
+}
+
+/**
  * @param {HTMLElement} container
  * @param {string} path
  */
@@ -316,7 +324,7 @@ async function fetchAndRenderQuizlet(container, path) {
 		clearChildren(container);
 		renderQuizlet(container, STATE.rows[STATE.index]);
 		updateProgress();
-		checkBtn.textContent = "Check";
+		resetCheckBtn(checkBtn);
 	};
 	const shuffleBtn = queryButtonOrThrow("button#shuffle");
 	const checkBtn = queryButtonOrThrow("button#check");
@@ -373,8 +381,9 @@ async function main() {
 		}
 		if (ok) {
 			checkBtn.textContent = "OK!";
+			checkBtn.classList.add("ok");
 		} else {
-			checkBtn.textContent = "Check";
+			resetCheckBtn(checkBtn);
 		}
 	};
 

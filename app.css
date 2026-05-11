@@ -74,6 +74,11 @@ button.secondary {
 	padding: 0.5rem 1rem;
 }
 
+button.ok {
+	background-color: green;
+	border: 1px solid green;
+}
+
 .actions {
 	display: flex;
 	flex-direction: column;
