@@ -63,6 +63,15 @@ button.primary {
 	border: 1px solid black;
 	border-radius: 2rem;
 	padding: 0.5rem 1rem;
+	box-shadow: 0 4px 0 #333;
+	transition: all 0.1s;
+	position: relative;
+	top: 0;
+}
+
+button.primary:active {
+	top: 2px;
+	box-shadow: 0 2px 0 #333;
 }
 
 button.secondary {
@@ -72,6 +81,15 @@ button.secondary {
 	border: 1px solid black;
 	border-radius: 2rem;
 	padding: 0.5rem 1rem;
+	box-shadow: 0 4px 0 #ccc;
+	transition: all 0.1s;
+	position: relative;
+	top: 0;
+}
+
+button.secondary:active {
+	top: 2px;
+	box-shadow: 0 2px 0 #ccc;
 }
 
 button.btn-link {
