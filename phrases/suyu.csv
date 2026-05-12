@@ -19,7 +19,7 @@ han,pinyin
 拍马屁,pāi mǎ pì
 情人眼里出西施,qíng rén yǎn lǐ chū xī shī
 打酱油,dǎ jiàng yóu
-不怕一万就怕万一,bú pà yí wàn jù pà wàn yī
+不怕一万就怕万一,bú pà yí wàn jiù pà wàn yī
 走着瞧,zǒu zhe qiáo
 不管三七二十一,bù guǎn sān qī èr shí yī
 吃着碗里的看着锅里的,chī zhe wǎn lǐ de kàn zhe guō lǐ de
@@ -62,7 +62,7 @@ han,pinyin
 一朝被蛇咬十年怕井绳,yì zhāo bèi shé yǎo shí nián pà jǐng shéng
 英雄难过美人关,yīng xióng nán guò měi rén guān
 刀子嘴豆腐心,dāo zi zuǐ dòu fu xīn
-一失足成千古恨,yì shī zú chéng qiān gǔ hèn
+一失足成千古恨,yì shī zú chéng qiān guǔ hèn
 哪壶不开提哪壶,nǎ hú bù kāi tí nǎ hú
 炒鱿鱼,chǎo yóu yú
 人往高处走水往低处流,rén wǎng gāo chù zǒu shuǐ wǎng dī chù liú
@@ -171,3 +171,97 @@ han,pinyin
 真金不怕火炼,zhēn jīn bú pà huǒ liàn
 狗改不了吃屎,gǒu gǎi bù liǎo chī shǐ
 杀手锏,shā shǒu jiǎn
+饥不择食,jī bù zé shí
+对事不对人,duì shì bú duì rén
+皮笑肉不笑,pí xiào ròu bú xiào
+双刃剑,shuāng rèn jiàn
+热脸贴冷屁股,rè liǎn tiē lěng pì gu
+好了伤疤忘了疼,hǎo le shāng bā wàng le téng
+醋坛子,cù tán zi
+君子之交淡如水,jūn zǐ zhī jiāo dàn rú shuǐ
+三个和尚没水吃,sān gè hé shang méi shuǐ chī
+赶鸭子上架,gǎn yā zi shàng jià
+小白脸,xiǎo bái liǎn
+放长线钓大鱼,fàng cháng xiàn diào dà yú
+依葫芦画瓢,yī hú lu huà piáo
+隔墙有耳,gé qiáng yǒu ěr
+巧妇难为无米之炊,qiǎo fù nán wéi wú mǐ zhī chuī
+不是吃素的,bú shì chī sù de
+嫁鸡随鸡嫁狗随狗,jià jī suí jī jià gǒu suí gǒu
+打开天窗说亮话,dǎ kāi tiān chuāng shuō liàng huà
+人算不如天算,rén suàn bù rú tiān suàn
+小动作,xiǎo dòng zuò
+远水解不了近渴,yuǎn shuǐ jiě bù liǎo jìn kě
+占着茅坑不拉屎,zhàn zhe máo kēng bù lā shǐ
+碰一鼻子灰,pèng yì bí zi huī
+死猪不怕开水烫,sǐ zhū bú pà kāi shuǐ tàng
+换汤不换药,huàn tāng bú huàn yào
+救命稻草,jiù mìng dào cǎo
+明枪易躲暗箭难防,míng qiāng yì duǒ àn jiàn nán fáng
+谋事在人成事在天,móu shì zài rén chéng shì zài tiān
+三个女人一台戏,sān gè nǚ rén yì tái xì
+有鼻子有眼,yǒu bí zi yǒu yǎn
+枪打出头鸟,qiāng dǎ chū tóu niǎo
+碰钉子,pèng dīng zi
+蹬鼻子上脸,dēng bí zi shàng liǎn
+吃豆腐,chī dòu fu
+眉毛胡子一把抓,méi mao hú zi yì bǎ zhuā
+偷鸡不成反蚀把米,tōu jī bù chéng fǎn shí bǎ mǐ
+众人拾柴火焰高,zhòng rén shí chái huǒ yàn gāo
+快刀斩乱麻,kuài dāo zhǎn luàn má
+吃软饭,chī ruǎn fàn
+一着不慎满盘皆输,yì zhāo bú shèn mǎn pán jiē shū
+听风就是雨,tīng fēng jiù shì yǔ
+鸿门宴,hóng mén yàn
+吃哑巴亏,chī yǎ ba kuī
+眼中钉肉中刺,yǎn zhōng dīng ròu zhōng cì
+舍不得孩子套不住狼,shě bù dé hái zi tào bú zhù láng
+挂羊头卖狗肉,guà yáng tóu mài gǒu ròu
+煮熟的鸭子飞了,zhǔ shú de yā zi fēi le
+常在河边走哪有不湿鞋,cháng zài hé biān zǒu nǎ yǒu bù shī xié
+三脚猫,sān jiǎo māo
+吃闭门羹,chī bì mén gēng
+三十年河东三十年河西,sān shí nián hé dōng sān shí nián hé xī
+土包子,tǔ bāo zi
+树大招风,shù dà zhāo fēng
+酒逢知己千杯少,jiǔ féng zhī jǐ qiān bēi shǎo
+当一天和尚撞一天钟,dāng yì tiān hé shang zhuàng yì tiān zhōng
+是骡子是马拉出来遛遛,shì luó zi shì mǎ lā chū lai liù liu
+一个鼻孔出气,yí gè bí kǒng chū qì
+身在曹营心在汉,shēn zài cáo yíng xīn zài hàn
+瘦死的骆驼比马大,shòu sǐ de luò tuo bǐ mǎ dà
+树欲静而风不止,shù yù jìng ér fēng bù zhǐ
+丑媳妇早晚也得见公婆,chǒu xí fù zǎo wǎn yě děi jiàn gōng pó
+胜者王侯败者贼,shèng zhě wáng hóu bài zhě zéi
+下三烂,xià sān làn
+上了贼船,shàng le zéi chuán
+病急乱投医,bìng jí luàn tóu yī
+打如意算盘,dǎ rú yì suàn pán
+龙生龙凤生凤,lóng shēng lóng fèng shēng fèng
+不看僧面看佛面,bú kàn sēng miàn kàn fó miàn
+雷声大雨点小,léi shēng dà yǔ diǎn xiǎo
+脸红脖子粗,liǎn hóng bó zi cū
+一棍子打死,yí gùn zi dǎ sǐ
+拿鸡蛋碰石头,ná jī dàn pèng shí tou
+没有不透风的墙,méi yǒu bú tòu fēng de qiáng
+人怕出名猪怕壮,rén pà chū míng zhū pà zhuàng
+山中无老虎猴子称大王,shān zhōng wú lǎo hǔ hóu zi chēng dà wáng
+杀鸡焉用宰牛刀,shā jī yān yòng zǎi niú dāo
+大树底下好乘凉,dà shù dǐ xià hǎo chéng liáng
+跑龙套,pǎo lóng tào
+七大姑八大姨,qī dà gū bā dà yí
+一是一二是二,yī shì yī èr shì èr
+多个朋友多条路,duō gè péng you duō tiáo lù
+下台阶,xià tái jiē
+打小算盘,dǎ xiǎo suàn pán
+坐山观虎斗,zuò shān guān hǔ dòu
+羊毛出在羊身上,yáng máo chū zài yáng shēn shang
+一口吃成个胖子,yì kǒu chī chéng gè pàng zi
+屋漏偏逢连阴雨,wū lòu piān féng lián yīn yǔ
+老油条,lǎo yóu tiáo
+捅马蜂窝,tǒng mǎ fēng wō
+小意思,xiǎo yì si
+倒打一耙,dào dǎ yì pá
+陈芝麻烂谷子,chén zhī ma làn gǔ zi
+一条龙,yì tiáo lóng
+四两拨千斤,sì liǎng bō qiān jīn
