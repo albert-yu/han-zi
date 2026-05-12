@@ -381,6 +381,18 @@ async function main() {
 			input.value = expected;
 		}
 	};
+
+	const copyBtn = queryButtonOrThrow("button#copy-han");
+	copyBtn.onclick = () => {
+		const [han] = STATE.rows[STATE.index];
+		navigator.clipboard.writeText(han).then(() => {
+			const originalColor = copyBtn.style.color;
+			copyBtn.style.color = "rgb(0, 124, 80)";
+			setTimeout(() => {
+				copyBtn.style.color = originalColor;
+			}, 1000);
+		});
+	};
 }
 
 main();
