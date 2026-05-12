@@ -35,13 +35,6 @@ async function fetchCSV(path) {
 }
 
 /**
- * @param {number} max
- */
-function getRandomIndex(max) {
-	return Math.floor(Math.random() * max);
-}
-
-/**
  * @returns {NodeListOf<HTMLInputElement>}
  */
 function findInputs() {
