@@ -388,8 +388,12 @@ async function main() {
 		navigator.clipboard.writeText(han).then(() => {
 			const originalColor = copyBtn.style.color;
 			copyBtn.style.color = "rgb(0, 124, 80)";
+			const textEl = copyBtn.children[1];
+			const originalText = textEl.innerText;
+			textEl.innerText = "Copied!";
 			setTimeout(() => {
 				copyBtn.style.color = originalColor;
+				textEl.innerText = originalText;
 			}, 1000);
 		});
 	};
