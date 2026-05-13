@@ -203,9 +203,20 @@ function getConfigFromDOM() {
 	const selected = listSelect.selectedOptions[0];
 	const path = selected.getAttribute("path");
 
-	const selectedModeRadio = document.querySelector(
-		'input[type="radio"][name="mode"][checked]',
+	const radioControls = document.querySelectorAll(
+		'input[type="radio"][name="mode"]',
 	);
+	/**
+	 * @type {HTMLInputElement | null}
+	 */
+	let selectedModeRadio = null;
+	for (const radio of radioControls) {
+		if (radio.checked) {
+			selectedModeRadio = radio;
+			break;
+		}
+	}
+
 	/**
 	 * @type {"han" | "trad"}
 	 */
@@ -228,8 +239,8 @@ function activateListSelect(container, currentlySelected) {
 		console.warn("Unable to find select#lists");
 		return;
 	}
-	const { mode } = getConfigFromDOM();
 	listSelect.addEventListener("change", function () {
+		const { mode } = getConfigFromDOM();
 		const value = this.value;
 		const selected = this.selectedOptions[0];
 		const path = selected.getAttribute("path");
