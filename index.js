@@ -10,7 +10,7 @@ const TONES = {
  */
 const STATE = {
 	/**
-	 * @type [string, string][]
+	 * @type [string, string, string][]
 	 */
 	rows: [],
 
@@ -23,7 +23,7 @@ const STATE = {
 
 /**
  * @param {string} path
- * @returns {Promise<[string, string][]>}
+ * @returns {Promise<[string, string, string][]>}
  */
 async function fetchCSV(path) {
 	const resp = await fetch(path);
@@ -129,9 +129,11 @@ function clearChildren(parent) {
 /**
  * @param {HTMLElement} container
  * @param {[string, string][]} selection
+ * @param {"han" | "trad"} mode
  */
-function renderQuizlet(container, selection) {
-	const [han, pinyin] = selection;
+function renderQuizlet(container, selection, mode) {
+	const [simplified, pinyin, trad] = selection;
+	const han = mode === "trad" ? trad : simplified;
 
 	// add elements to DOM
 	const fragment = document.createDocumentFragment();
@@ -292,8 +294,9 @@ function resetCheckBtn(checkBtn) {
 /**
  * @param {HTMLElement} container
  * @param {string} path
+ * @param {"han" | "trad"} mode
  */
-async function fetchAndRenderQuizlet(container, path) {
+async function fetchAndRenderQuizlet(container, path, mode) {
 	setLoading(container, true);
 	const result = await fetchCSV(path);
 	setLoading(container, false);
@@ -303,12 +306,12 @@ async function fetchAndRenderQuizlet(container, path) {
 		container.innerHTML = `Error: got empty CSV`;
 		return;
 	}
-	renderQuizlet(container, STATE.rows[STATE.index]);
+	renderQuizlet(container, STATE.rows[STATE.index], mode);
 	updateProgress();
 
 	const updateUI = () => {
 		clearChildren(container);
-		renderQuizlet(container, STATE.rows[STATE.index]);
+		renderQuizlet(container, STATE.rows[STATE.index], mode);
 		updateProgress();
 		resetCheckBtn(checkBtn);
 	};
@@ -345,11 +348,25 @@ async function main() {
 	);
 	const fallback = document.querySelector(`select#lists option`);
 	const selectedOption = matchingOption ?? fallback;
+
 	const value = selectedOption.getAttribute("value");
 	const path = selectedOption.getAttribute("path");
 	history.pushState({ value, path }, null, `?list=${value}`);
 	activateListSelect(container, value);
-	await fetchAndRenderQuizlet(container, path);
+
+	// get selected mode
+	const modeParam = search.get("mode");
+	const matchingMode = document.querySelector(
+		`input[type="radio"][value="${modeParam}"]`,
+	);
+	const fallbackMode = document.querySelector(
+		'#mode-selection input[type="radio"]',
+	);
+	const selectedMode = matchingMode ?? fallbackMode;
+	selectedMode.checked = true;
+	const mode = selectedMode.getAttribute("value");
+
+	await fetchAndRenderQuizlet(container, path, mode);
 
 	const checkBtn = queryButtonOrThrow("button#check");
 	checkBtn.onclick = () => {
