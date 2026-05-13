@@ -50,8 +50,7 @@ body {
 
 .copy-container {
 	display: flex;
-	justify-content: flex-end;
-	padding: 0 1rem;
+	justify-content: flex-start;
 }
 
 .btn-subtle {
