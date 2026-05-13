@@ -327,6 +327,23 @@ function activateModeRadio(container) {
 			);
 			clearChildren(container);
 			renderQuizlet(container, STATE.rows[STATE.index], mode);
+			const checkBtn = queryButtonOrThrow("button#check");
+			const updateUI = () => {
+				clearChildren(container);
+				renderQuizlet(container, STATE.rows[STATE.index], mode);
+				updateProgress();
+				resetCheckBtn(checkBtn);
+			};
+			const prevBtn = queryButtonOrThrow("button#prev");
+			prevBtn.onclick = () => {
+				STATE.index = Math.max(0, STATE.index - 1);
+				updateUI();
+			};
+			const nextBtn = queryButtonOrThrow("button#next");
+			nextBtn.onclick = () => {
+				STATE.index = Math.min(STATE.rows.length - 1, STATE.index + 1);
+				updateUI();
+			};
 		});
 	}
 }
@@ -365,6 +382,7 @@ async function fetchAndRenderQuizlet(container, path, mode) {
 	renderQuizlet(container, STATE.rows[STATE.index], mode);
 	updateProgress();
 
+	const checkBtn = queryButtonOrThrow("button#check");
 	const updateUI = () => {
 		clearChildren(container);
 		renderQuizlet(container, STATE.rows[STATE.index], mode);
@@ -372,7 +390,6 @@ async function fetchAndRenderQuizlet(container, path, mode) {
 		resetCheckBtn(checkBtn);
 	};
 	const shuffleBtn = queryButtonOrThrow("button#shuffle");
-	const checkBtn = queryButtonOrThrow("button#check");
 	shuffleBtn.onclick = () => {
 		STATE.rows = shuffle(result);
 		STATE.index = 0;
