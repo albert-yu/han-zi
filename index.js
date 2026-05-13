@@ -254,19 +254,6 @@ function activateListSelect(container, currentlySelected) {
 		}
 	});
 
-	window.addEventListener("popstate", (e) => {
-		if (!e.state) {
-			return;
-		}
-		const { path, value, mode } = e.state;
-		const select = getListSelect();
-		if (select) {
-			select.value = value;
-		}
-		if (path) {
-			fetchAndRenderQuizlet(container, path, mode);
-		}
-	});
 	listSelect.value = currentlySelected;
 }
 
@@ -435,7 +422,6 @@ async function main() {
 
 	const value = selectedOption.getAttribute("value");
 	const path = selectedOption.getAttribute("path");
-	history.pushState({ value, path }, null, `?list=${value}`);
 	activateListSelect(container, value);
 
 	// get selected mode
@@ -450,6 +436,22 @@ async function main() {
 	selectedMode.checked = true;
 	const mode = selectedMode.getAttribute("value");
 	activateModeRadio(container);
+	history.pushState({ value, path, mode }, null, `?list=${value}&mode=${mode}`);
+
+	// handle back
+	window.addEventListener("popstate", (e) => {
+		if (!e.state) {
+			return;
+		}
+		const { path, value, mode } = e.state;
+		const select = getListSelect();
+		if (select) {
+			select.value = value;
+		}
+		if (path) {
+			fetchAndRenderQuizlet(container, path, mode);
+		}
+	});
 
 	await fetchAndRenderQuizlet(container, path, mode);
 
