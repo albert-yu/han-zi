@@ -194,6 +194,29 @@ function renderQuizlet(container, selection, mode) {
 	container.appendChild(fragment);
 }
 
+function getConfigFromDOM() {
+	const listSelect = getListSelect();
+	if (!listSelect) {
+		throw new Error("Could not find select#lists");
+	}
+	const value = listSelect.value;
+	const selected = listSelect.selectedOptions[0];
+	const path = selected.getAttribute("path");
+
+	const selectedModeRadio = document.querySelector(
+		'input[type="radio"][name="mode"][checked]',
+	);
+	/**
+	 * @type {"han" | "trad"}
+	 */
+	const mode = selectedModeRadio?.value ?? "han";
+	return {
+		value,
+		path,
+		mode,
+	};
+}
+
 /**
  * @param {HTMLElement} container
  * @param {string} currentlySelected the currently
@@ -205,13 +228,18 @@ function activateListSelect(container, currentlySelected) {
 		console.warn("Unable to find select#lists");
 		return;
 	}
+	const { mode } = getConfigFromDOM();
 	listSelect.addEventListener("change", function () {
 		const value = this.value;
 		const selected = this.selectedOptions[0];
 		const path = selected.getAttribute("path");
-		history.pushState({ value, path }, null, `?list=${value}`);
+		history.pushState(
+			{ value, path, mode },
+			null,
+			`?list=${value}&mode=${mode}`,
+		);
 		if (path) {
-			fetchAndRenderQuizlet(container, path);
+			fetchAndRenderQuizlet(container, path, mode);
 		}
 	});
 
@@ -219,13 +247,13 @@ function activateListSelect(container, currentlySelected) {
 		if (!e.state) {
 			return;
 		}
-		const { path, value } = e.state;
+		const { path, value, mode } = e.state;
 		const select = getListSelect();
 		if (select) {
 			select.value = value;
 		}
 		if (path) {
-			fetchAndRenderQuizlet(container, path);
+			fetchAndRenderQuizlet(container, path, mode);
 		}
 	});
 	listSelect.value = currentlySelected;
@@ -281,6 +309,34 @@ function updateProgress() {
 		throw new Error("Missing progress element");
 	}
 	progressElement.innerText = `${STATE.index + 1} / ${STATE.rows.length}`;
+}
+
+/**
+ * @param {HTMLElement} container
+ */
+function activateModeRadio(container) {
+	const btns = queryModeRadioBtns();
+	const { value, path } = getConfigFromDOM();
+	for (const btn of btns) {
+		btn.addEventListener("click", function () {
+			const mode = this.value;
+			history.pushState(
+				{ value, path, mode },
+				null,
+				`?list=${value}&mode=${mode}`,
+			);
+			clearChildren(container);
+			renderQuizlet(container, STATE.rows[STATE.index], mode);
+		});
+	}
+}
+
+/**
+ * @returns {NodeListOf<HTMLInputElement>}
+ */
+function queryModeRadioBtns() {
+	const results = document.querySelectorAll('input[type="radio"][name="mode"]');
+	return results;
 }
 
 /**
@@ -365,6 +421,7 @@ async function main() {
 	const selectedMode = matchingMode ?? fallbackMode;
 	selectedMode.checked = true;
 	const mode = selectedMode.getAttribute("value");
+	activateModeRadio(container);
 
 	await fetchAndRenderQuizlet(container, path, mode);
 
