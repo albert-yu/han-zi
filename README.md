@@ -1,6 +1,6 @@
 # Han flashcards
 
-App designed to train reading of (simplified) Han characters
+App designed to train reading of Han characters
 by having the user input the corresponding _pinyin_.
 
 Requires working knowledge of _pinyin_.
