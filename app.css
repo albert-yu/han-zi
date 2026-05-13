@@ -95,7 +95,7 @@ body {
 	gap: 0.5rem;
 }
 
-input {
+input[type="text"] {
 	width: 100%;
 	max-width: 100px;
 	font-size: 1.5rem;
