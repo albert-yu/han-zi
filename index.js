@@ -38,7 +38,7 @@ async function fetchCSV(path) {
  * @returns {NodeListOf<HTMLInputElement>}
  */
 function findInputs() {
-	return document.querySelectorAll(".han-char input");
+	return document.querySelectorAll(".simplified-char input");
 }
 
 /**
@@ -129,18 +129,18 @@ function clearChildren(parent) {
 /**
  * @param {HTMLElement} container
  * @param {[string, string][]} selection
- * @param {"han" | "trad"} mode
+ * @param {"simplified" | "trad"} mode
  */
 function renderQuizlet(container, selection, mode) {
 	const [simplified, pinyin, trad] = selection;
-	const han = mode === "trad" ? trad : simplified;
+	const currentCharacters = mode === "trad" ? trad : simplified;
 
 	// add elements to DOM
 	const fragment = document.createDocumentFragment();
-	const words = han.split("");
+	const words = currentCharacters.split("");
 	const pinyinWords = pinyin.split(/\s+/);
 	if (words.length !== pinyinWords.length) {
-		console.error("Got mismatching word counts for pinyin and han", {
+		console.error("Got mismatching word counts for pinyin and simplified", {
 			words,
 			pinyinWords,
 		});
@@ -149,12 +149,12 @@ function renderQuizlet(container, selection, mode) {
 	for (let i = 0; i < words.length; i++) {
 		const w = words[i];
 		const pinyinWord = pinyinWords[i];
-		// han character
+		// simplified character
 		const sp = document.createElement("span");
 		sp.textContent = w;
-		sp.classList.add("han-display");
+		sp.classList.add("simplified-display");
 		const div = document.createElement("div");
-		div.classList.add("han-char");
+		div.classList.add("simplified-char");
 		div.appendChild(sp);
 
 		const inputGroup = document.createElement("div");
@@ -218,9 +218,9 @@ function getConfigFromDOM() {
 	}
 
 	/**
-	 * @type {"han" | "trad"}
+	 * @type {"simplified" | "trad"}
 	 */
-	const mode = selectedModeRadio?.value ?? "han";
+	const mode = selectedModeRadio?.value ?? "simplified";
 	return {
 		value,
 		path,
@@ -365,7 +365,7 @@ function resetCheckBtn(checkBtn) {
 /**
  * @param {HTMLElement} container
  * @param {string} path
- * @param {"han" | "trad"} mode
+ * @param {"simplified" | "trad"} mode
  */
 async function fetchAndRenderQuizlet(container, path, mode) {
 	setLoading(container, true);
@@ -407,9 +407,9 @@ async function fetchAndRenderQuizlet(container, path, mode) {
 }
 
 async function main() {
-	const container = document.querySelector("#han-container");
+	const container = document.querySelector("#simplified-container");
 	if (!container) {
-		console.error("could not find #han-container");
+		console.error("could not find #simplified-container");
 		return;
 	}
 	const search = new URLSearchParams(window.location.search);
@@ -486,10 +486,10 @@ async function main() {
 		}
 	};
 
-	const copyBtn = queryButtonOrThrow("button#copy-han");
+	const copyBtn = queryButtonOrThrow("button#copy-simplified");
 	copyBtn.onclick = () => {
-		const [han] = STATE.rows[STATE.index];
-		navigator.clipboard.writeText(han).then(() => {
+		const [simplifiedCharacters] = STATE.rows[STATE.index];
+		navigator.clipboard.writeText(simplifiedCharacters).then(() => {
 			const originalColor = copyBtn.style.color;
 			copyBtn.style.color = "rgb(0, 124, 80)";
 			const textEl = copyBtn.children[1];
