@@ -486,10 +486,12 @@ async function main() {
 		}
 	};
 
-	const copyBtn = queryButtonOrThrow("button#copy-simplified");
+	const copyBtn = queryButtonOrThrow("button#copy-chars");
 	copyBtn.onclick = () => {
-		const [simplifiedCharacters] = STATE.rows[STATE.index];
-		navigator.clipboard.writeText(simplifiedCharacters).then(() => {
+		const { mode } = getConfigFromDOM();
+		const [simplifiedCharacters, _, tradChars] = STATE.rows[STATE.index];
+		const chars = mode === "trad" ? tradChars : simplifiedCharacters;
+		navigator.clipboard.writeText(chars).then(() => {
 			const originalColor = copyBtn.style.color;
 			copyBtn.style.color = "rgb(0, 124, 80)";
 			const textEl = copyBtn.children[1];
