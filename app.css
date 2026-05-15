@@ -74,7 +74,7 @@ body {
 	color: #333;
 }
 
-.simplified-char {
+.han-char {
 	display: flex;
 	flex-direction: column;
 	gap: 1em;

@@ -38,7 +38,7 @@ async function fetchCSV(path) {
  * @returns {NodeListOf<HTMLInputElement>}
  */
 function findInputs() {
-	return document.querySelectorAll(".simplified-char input");
+	return document.querySelectorAll(".han-char input");
 }
 
 /**
@@ -154,7 +154,7 @@ function renderQuizlet(container, selection, mode) {
 		sp.textContent = w;
 		sp.classList.add("han-display");
 		const div = document.createElement("div");
-		div.classList.add("simplified-char");
+		div.classList.add("han-char");
 		div.appendChild(sp);
 
 		const inputGroup = document.createElement("div");
