@@ -313,7 +313,7 @@ function updateProgress() {
  * Refreshes the quizlet display based on current STATE and DOM config
  */
 function refreshUI() {
-	const container = document.querySelector("#simplified-container");
+	const container = document.querySelector("#han-container");
 	if (!container || STATE.rows.length === 0) {
 		return;
 	}
@@ -377,9 +377,9 @@ async function fetchAndRenderQuizlet(container, path) {
 }
 
 async function main() {
-	const container = document.querySelector("#simplified-container");
+	const container = document.querySelector("#han-container");
 	if (!container) {
-		console.error("could not find #simplified-container");
+		console.error("could not find #han-container");
 		return;
 	}
 	const search = new URLSearchParams(window.location.search);

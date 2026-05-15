@@ -38,7 +38,7 @@ body {
 	gap: 0.5rem;
 }
 
-#simplified-container {
+#han-container {
 	width: 100%;
 	padding: 1rem 1rem 0.5rem 1rem;
 	display: grid;
@@ -228,7 +228,7 @@ button.ok {
 		max-width: 1000px;
 	}
 
-	#simplified-container {
+	#han-container {
 		grid-template-columns: auto auto auto auto auto;
 		padding: 0.75rem;
 		justify-items: start;
