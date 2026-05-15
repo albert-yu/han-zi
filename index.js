@@ -149,7 +149,6 @@ function renderQuizlet(container, selection, mode) {
 	for (let i = 0; i < words.length; i++) {
 		const w = words[i];
 		const pinyinWord = pinyinWords[i];
-		// simplified character
 		const sp = document.createElement("span");
 		sp.textContent = w;
 		sp.classList.add("han-display");
