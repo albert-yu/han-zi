@@ -441,6 +441,17 @@ async function main() {
 		STATE.index = Math.min(STATE.rows.length - 1, STATE.index + 1);
 		refreshUI();
 	};
+
+	window.addEventListener("keydown", (e) => {
+		if (e.key === "ArrowRight") {
+			STATE.index = Math.min(STATE.rows.length - 1, STATE.index + 1);
+			refreshUI();
+		} else if (e.key === "ArrowLeft") {
+			STATE.index = Math.max(0, STATE.index - 1);
+			refreshUI();
+		}
+	});
+
 	const shuffleBtn = queryButtonOrThrow("button#shuffle");
 	shuffleBtn.onclick = () => {
 		STATE.rows = shuffle(STATE.rows);
