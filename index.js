@@ -152,7 +152,7 @@ function renderQuizlet(container, selection, mode) {
 		// simplified character
 		const sp = document.createElement("span");
 		sp.textContent = w;
-		sp.classList.add("simplified-display");
+		sp.classList.add("han-display");
 		const div = document.createElement("div");
 		div.classList.add("simplified-char");
 		div.appendChild(sp);

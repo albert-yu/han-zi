@@ -30,7 +30,7 @@ body {
 	gap: 2rem;
 }
 
-#simplified-wrapper {
+#han-wrapper {
 	position: relative;
 	width: 100%;
 	display: flex;
@@ -83,7 +83,7 @@ body {
 	align-items: center;
 }
 
-.simplified-display {
+.han-display {
 	font-size: 4rem;
 }
 
