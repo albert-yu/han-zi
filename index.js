@@ -310,38 +310,38 @@ function updateProgress() {
 }
 
 /**
+ * Refreshes the quizlet display based on current STATE and DOM config
+ */
+function refreshUI() {
+	const container = document.querySelector("#simplified-container");
+	if (!container || STATE.rows.length === 0) {
+		return;
+	}
+
+	const { mode } = getConfigFromDOM();
+	const checkBtn = queryButtonOrThrow("button#check");
+
+	clearChildren(container);
+	renderQuizlet(container, STATE.rows[STATE.index], mode);
+	updateProgress();
+	resetCheckBtn(checkBtn);
+}
+
+/**
  * @param {HTMLElement} container
  */
 function activateModeRadio(container) {
 	const btns = queryModeRadioBtns();
-	const { value, path } = getConfigFromDOM();
 	for (const btn of btns) {
 		btn.addEventListener("click", function () {
+			const { value, path } = getConfigFromDOM();
 			const mode = this.value;
 			history.pushState(
 				{ value, path, mode },
 				null,
 				`?list=${value}&mode=${mode}`,
 			);
-			clearChildren(container);
-			renderQuizlet(container, STATE.rows[STATE.index], mode);
-			const checkBtn = queryButtonOrThrow("button#check");
-			const updateUI = () => {
-				clearChildren(container);
-				renderQuizlet(container, STATE.rows[STATE.index], mode);
-				updateProgress();
-				resetCheckBtn(checkBtn);
-			};
-			const prevBtn = queryButtonOrThrow("button#prev");
-			prevBtn.onclick = () => {
-				STATE.index = Math.max(0, STATE.index - 1);
-				updateUI();
-			};
-			const nextBtn = queryButtonOrThrow("button#next");
-			nextBtn.onclick = () => {
-				STATE.index = Math.min(STATE.rows.length - 1, STATE.index + 1);
-				updateUI();
-			};
+			refreshUI();
 		});
 	}
 }
@@ -371,39 +371,13 @@ async function fetchAndRenderQuizlet(container, path, mode) {
 	setLoading(container, true);
 	const result = await fetchCSV(path);
 	setLoading(container, false);
-	STATE.rows = shuffle(result);
-	STATE.index = 0;
 	if (result.length === 0) {
 		container.innerHTML = `Error: got empty CSV`;
 		return;
 	}
-	renderQuizlet(container, STATE.rows[STATE.index], mode);
-	updateProgress();
-
-	const checkBtn = queryButtonOrThrow("button#check");
-	const updateUI = () => {
-		clearChildren(container);
-		renderQuizlet(container, STATE.rows[STATE.index], mode);
-		updateProgress();
-		resetCheckBtn(checkBtn);
-	};
-	const shuffleBtn = queryButtonOrThrow("button#shuffle");
-	shuffleBtn.onclick = () => {
-		STATE.rows = shuffle(result);
-		STATE.index = 0;
-		updateUI();
-	};
-
-	const prevBtn = queryButtonOrThrow("button#prev");
-	prevBtn.onclick = () => {
-		STATE.index = Math.max(0, STATE.index - 1);
-		updateUI();
-	};
-	const nextBtn = queryButtonOrThrow("button#next");
-	nextBtn.onclick = () => {
-		STATE.index = Math.min(STATE.rows.length - 1, STATE.index + 1);
-		updateUI();
-	};
+	STATE.rows = shuffle(result);
+	STATE.index = 0;
+	refreshUI();
 }
 
 async function main() {
@@ -448,12 +422,35 @@ async function main() {
 		if (select) {
 			select.value = value;
 		}
+		const modeRadio = document.querySelector(
+			`input[type="radio"][value="${mode}"]`,
+		);
+		if (modeRadio) {
+			modeRadio.checked = true;
+		}
 		if (path) {
 			fetchAndRenderQuizlet(container, path, mode);
 		}
 	});
 
 	await fetchAndRenderQuizlet(container, path, mode);
+
+	const prevBtn = queryButtonOrThrow("button#prev");
+	prevBtn.onclick = () => {
+		STATE.index = Math.max(0, STATE.index - 1);
+		refreshUI();
+	};
+	const nextBtn = queryButtonOrThrow("button#next");
+	nextBtn.onclick = () => {
+		STATE.index = Math.min(STATE.rows.length - 1, STATE.index + 1);
+		refreshUI();
+	};
+	const shuffleBtn = queryButtonOrThrow("button#shuffle");
+	shuffleBtn.onclick = () => {
+		STATE.rows = shuffle(STATE.rows);
+		STATE.index = 0;
+		refreshUI();
+	};
 
 	const checkBtn = queryButtonOrThrow("button#check");
 	checkBtn.onclick = () => {
