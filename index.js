@@ -250,7 +250,7 @@ function activateListSelect(container, currentlySelected) {
 			`?list=${value}&mode=${mode}`,
 		);
 		if (path) {
-			fetchAndRenderQuizlet(container, path, mode);
+			fetchAndRenderQuizlet(container, path);
 		}
 	});
 
@@ -327,10 +327,7 @@ function refreshUI() {
 	resetCheckBtn(checkBtn);
 }
 
-/**
- * @param {HTMLElement} container
- */
-function activateModeRadio(container) {
+function activateModeRadio() {
 	const btns = queryModeRadioBtns();
 	for (const btn of btns) {
 		btn.addEventListener("click", function () {
@@ -365,9 +362,8 @@ function resetCheckBtn(checkBtn) {
 /**
  * @param {HTMLElement} container
  * @param {string} path
- * @param {"simplified" | "trad"} mode
  */
-async function fetchAndRenderQuizlet(container, path, mode) {
+async function fetchAndRenderQuizlet(container, path) {
 	setLoading(container, true);
 	const result = await fetchCSV(path);
 	setLoading(container, false);
@@ -429,11 +425,11 @@ async function main() {
 			modeRadio.checked = true;
 		}
 		if (path) {
-			fetchAndRenderQuizlet(container, path, mode);
+			fetchAndRenderQuizlet(container, path);
 		}
 	});
 
-	await fetchAndRenderQuizlet(container, path, mode);
+	await fetchAndRenderQuizlet(container, path);
 
 	const prevBtn = queryButtonOrThrow("button#prev");
 	prevBtn.onclick = () => {
