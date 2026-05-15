@@ -140,7 +140,7 @@ function renderQuizlet(container, selection, mode) {
 	const words = currentCharacters.split("");
 	const pinyinWords = pinyin.split(/\s+/);
 	if (words.length !== pinyinWords.length) {
-		console.error("Got mismatching word counts for pinyin and simplified", {
+		console.error("Got mismatching word counts for pinyin and characters", {
 			words,
 			pinyinWords,
 		});
