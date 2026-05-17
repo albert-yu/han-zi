@@ -480,15 +480,15 @@ async function main() {
   };
 
   const copyBtn = queryButtonOrThrow("button#copy-chars");
+  const originalColor = copyBtn.style.color;
+  const textEl = copyBtn.children[1];
+  const originalText = textEl.innerText;
   copyBtn.onclick = () => {
     const { mode } = getConfigFromDOM();
     const [simplifiedCharacters, _, tradChars] = STATE.rows[STATE.index];
     const chars = mode === "trad" ? tradChars : simplifiedCharacters;
     navigator.clipboard.writeText(chars).then(() => {
-      const originalColor = copyBtn.style.color;
       copyBtn.style.color = "rgb(0, 124, 80)";
-      const textEl = copyBtn.children[1];
-      const originalText = textEl.innerText;
       textEl.innerText = "Copied!";
       setTimeout(() => {
         copyBtn.style.color = originalColor;
