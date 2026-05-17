@@ -1,73 +1,126 @@
 <!doctype html>
-<html>
-  <head>
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"
-    />
-    <title>Han zi</title>
-    <link rel="stylesheet" href="app.css">
-    <script defer src="./index.js" type="module"></script>
-  </head>
+<html lang="en">
+    <head>
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"
+        />
+        <title>Han zi</title>
+        <link rel="stylesheet" href="app.css" />
+        <script defer src="./index.js" type="module"></script>
+    </head>
 
-  <body>
-    <h1>Han zi</h1>
-    <p>Input the <i>pinyin</i> that corresponds to the displayed <i>han</i> character.</p>
-    <p>Use the provided controls to set the correct tone.</p>
-    <div>
-      <label for="lists">Choose a vocab list:</label>
-      <select id="lists" name="lists">
-        <optgroup label="1. Texting mom and dad">
-          <option value="basic" path="./phrases/basic.csv">Basic</option>
-          <option value="common" path="./phrases/common.csv">Common phrases</option>
-        </optgroup>
-        <optgroup label="2. Visiting the motherland">
-          <option value="getting-around" path="./phrases/getting-around.csv">Getting around</option>
-          <option value="food" path="./phrases/food.csv">Food and drink</option>
-          <option value="places" path="./phrases/places.csv">Places</option>
-          <option value="people" path="./phrases/people.csv">Famous people</option>
-          <option value="animals" path="./phrases/animals.csv">Animals</option>
-        </optgroup>
-        <optgroup label="3. Living in the motherland">
-          <option value="suyu" path="./phrases/suyu.csv">Suyu</option>
-        </optgroup>
-      </select>
-    </div>
-    <div id="mode-selection">
-      <div>
-        <input type="radio" id="mode-simplified" name="mode" value="simplified">
-        <label for="mode-simplified">Simplified</label>
-      </div>
-      <div>
-        <input type="radio" id="mode-traditional" name="mode" value="trad">
-        <label for="mode-traditional">Traditional</label>
-      </div>
-    </div>
-    <div id="app">
-      <div id="han-wrapper">
-        <div id="han-container">
+    <body>
+        <h1>Han zi</h1>
+        <p>
+            Input the <i>pinyin</i> that corresponds to the displayed
+            <i>han</i> character.
+        </p>
+        <p>Use the provided controls to set the correct tone.</p>
+        <div>
+            <label for="lists">Choose a vocab list:</label>
+            <select id="lists" name="lists">
+                <optgroup label="1. Texting mom and dad">
+                    <option value="basic" path="./phrases/basic.csv">
+                        Basic
+                    </option>
+                    <option value="common" path="./phrases/common.csv">
+                        Common phrases
+                    </option>
+                </optgroup>
+                <optgroup label="2. Visiting the motherland">
+                    <option
+                        value="getting-around"
+                        path="./phrases/getting-around.csv"
+                    >
+                        Getting around
+                    </option>
+                    <option value="food" path="./phrases/food.csv">
+                        Food and drink
+                    </option>
+                    <option value="places" path="./phrases/places.csv">
+                        Places
+                    </option>
+                    <option value="people" path="./phrases/people.csv">
+                        Famous people
+                    </option>
+                    <option value="animals" path="./phrases/animals.csv">
+                        Animals
+                    </option>
+                </optgroup>
+                <optgroup label="3. Living in the motherland">
+                    <option value="suyu" path="./phrases/suyu.csv">Suyu</option>
+                </optgroup>
+            </select>
         </div>
-        <div class="copy-container">
-          <button id="copy-chars" title="Copy to clipboard" class="btn-subtle">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-              <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
-              <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
-            </svg>
-            <span>Copy characters</span>
-          </button>
+        <div id="mode-selection">
+            <div>
+                <input
+                    type="radio"
+                    id="mode-simplified"
+                    name="mode"
+                    value="simplified"
+                />
+                <label for="mode-simplified">Simplified</label>
+            </div>
+            <div>
+                <input
+                    type="radio"
+                    id="mode-traditional"
+                    name="mode"
+                    value="trad"
+                />
+                <label for="mode-traditional">Traditional</label>
+            </div>
         </div>
-      </div>
-      <div class="actions">
-        <button id="check" class="primary">Check</button>
-        <button id="reveal" class="secondary">Reveal</button>
-        <button id="shuffle" class="secondary">Shuffle</button>
-        <div class="btn-group-horiz">
-          <button id="prev" class="btn-link">&lt; prev</button>
-          <span id="progress">0 / 0</span>
-          <button id="next" class="btn-link">next &gt;</button>
+        <div id="app">
+            <div id="han-wrapper">
+                <div id="han-container"></div>
+                <div class="copy-container">
+                    <button
+                        type="button"
+                        id="copy-chars"
+                        title="Copy to clipboard"
+                        class="btn-subtle"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            viewBox="0 0 16 16"
+                        >
+                            <title>Copy to clipboard</title>
+                            <path
+                                d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"
+                            />
+                            <path
+                                d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"
+                            />
+                        </svg>
+                        <span>Copy characters</span>
+                    </button>
+                </div>
+            </div>
+            <div class="actions">
+                <button type="button" id="check" class="primary">Check</button>
+                <button type="button" id="reveal" class="secondary">
+                    Reveal
+                </button>
+                <button type="button" id="shuffle" class="secondary">
+                    Shuffle
+                </button>
+                <div class="btn-group-horiz">
+                    <button type="button" id="prev" class="btn-link">
+                        &lt; prev
+                    </button>
+                    <span id="progress">0 / 0</span>
+                    <button type="button" id="next" class="btn-link">
+                        next &gt;
+                    </button>
+                </div>
+            </div>
+            <a href="https://github.com/albert-yu/han-zi">Source (GitHub)</a>
         </div>
-      </div>
-      <a href="https://github.com/albert-yu/han-zi">Source (GitHub)</a>
-    </div>
-  </body>
+    </body>
 </html>
