@@ -483,6 +483,10 @@ async function main() {
   const originalColor = copyBtn.style.color;
   const textEl = copyBtn.children[1];
   const originalText = textEl.innerText;
+  /**
+   * @type {number | null}
+   */
+  let timeout = null;
   copyBtn.onclick = () => {
     const { mode } = getConfigFromDOM();
     const [simplifiedCharacters, _, tradChars] = STATE.rows[STATE.index];
@@ -490,7 +494,10 @@ async function main() {
     navigator.clipboard.writeText(chars).then(() => {
       copyBtn.style.color = "rgb(0, 124, 80)";
       textEl.innerText = "Copied!";
-      setTimeout(() => {
+      if (timeout) {
+        clearTimeout(timeout);
+      }
+      timeout = setTimeout(() => {
         copyBtn.style.color = originalColor;
         textEl.innerText = originalText;
       }, 1000);
