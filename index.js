@@ -75,7 +75,7 @@ function applyAccent(input, accent) {
   // accent to
   //
   // alphabet order here is a coincidence
-  const priority = ["a", "e", "i", "o", "u"];
+  const priority = ["a", "e", "i", "o", "u", "ü"];
   const normalizedInput = removeAccents(input);
   for (const vowel of priority) {
     const indexOfVowel = normalizedInput.indexOf(vowel);
