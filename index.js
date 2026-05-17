@@ -47,7 +47,8 @@ function findInputs() {
  */
 function removeAccents(s) {
   const norm = s.normalize("NFD");
-  return norm.replace(/\p{Diacritic}/gu, "");
+  // Remove all diacritics except for the diaeresis (U+0308)
+  return norm.replace(/(?!\u0308)\p{Diacritic}/gu, "").normalize("NFC");
 }
 
 /**
@@ -99,7 +100,6 @@ function applyAccent(input, accent) {
           replacement = u[accent];
           break;
         case "ü":
-          // TODO: handle this correctly
           replacement = u1[accent];
           break;
       }
