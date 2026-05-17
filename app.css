@@ -1,248 +1,247 @@
 * {
-	box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
-	padding: 1rem;
-	margin: 0;
+    padding: 1rem;
+    margin: 0;
 }
 
 #mode-selection {
-	margin-top: 0.5rem;
-	display: flex;
-	flex-direction: column;
-	align-items: start;
+    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
 }
 
 #mode-selection div {
-	display: flex;
-	flex-direction: row;
-	align-items: start;
-	justify-content: center;
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: center;
 }
 
 #app {
-	width: 100%;
-	max-width: 600px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 2rem;
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
 }
 
 #han-wrapper {
-	position: relative;
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	gap: 0.5rem;
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 #han-container {
-	width: 100%;
-	padding: 1rem 1rem 0.5rem 1rem;
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	justify-items: center;
-	align-items: center;
-	gap: 1rem;
+    width: 100%;
+    padding: 1rem 1rem 0.5rem 1rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    align-items: center;
+    gap: 1rem;
 }
 
 .copy-container {
-	display: flex;
-	justify-content: flex-start;
+    display: flex;
+    justify-content: flex-start;
 }
 
 .btn-subtle {
-	display: flex;
-	align-items: center;
-	gap: 0.5rem;
-	background: none;
-	border: none;
-	color: #999;
-	cursor: pointer;
-	padding: 0.5rem;
-	border-radius: 4px;
-	transition:
-		background-color 0.2s,
-		color 0.2s;
-	font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: none;
+    border: none;
+    color: #999;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition:
+        background-color 0.2s,
+        color 0.2s;
+    font-size: 0.8rem;
 }
 
 .btn-subtle:hover {
-	background-color: #f0f0f0;
-	color: #333;
+    background-color: #f0f0f0;
+    color: #333;
 }
 
 .han-char {
-	display: flex;
-	flex-direction: column;
-	gap: 1em;
-	width: 100%;
-	max-width: 100px;
-	align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    width: 100%;
+    max-width: 100px;
+    align-items: center;
 }
 
 .han-display {
-	font-size: 4rem;
+    font-size: 4rem;
 }
 
 .pinyin-input-group {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 input[type="text"] {
-	width: 100%;
-	max-width: 100px;
-	font-size: 1.5rem;
-	border: 1px solid black;
-	border-radius: 1rem;
-	padding: 0.5rem 1rem;
+    width: 100%;
+    max-width: 100px;
+    font-size: 1.5rem;
+    border: 1px solid black;
+    border-radius: 1rem;
+    padding: 0.5rem 1rem;
 }
 
 input.incorrect {
-	border-color: red;
+    border-color: red;
 }
 
 button {
-	cursor: pointer;
+    cursor: pointer;
 }
 
 button.primary {
-	font-size: 1rem;
-	background-color: black;
-	color: white;
-	border: 1px solid black;
-	border-radius: 2rem;
-	padding: 0.5rem 1rem;
-	box-shadow: 0 4px 0 #333;
-	transition: all 0.1s;
-	position: relative;
-	top: 0;
+    font-size: 1rem;
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+    border-radius: 2rem;
+    padding: 0.5rem 1rem;
+    box-shadow: 0 4px 0 #333;
+    transition: all 0.1s;
+    position: relative;
+    top: 0;
 }
 
 button.primary:active {
-	top: 2px;
-	box-shadow: 0 2px 0 #333;
+    top: 2px;
+    box-shadow: 0 2px 0 #333;
 }
 
 button.secondary {
-	font-size: 1rem;
-	background-color: white;
-	color: black;
-	border: 1px solid black;
-	border-radius: 2rem;
-	padding: 0.5rem 1rem;
-	box-shadow: 0 4px 0 #ccc;
-	transition: all 0.1s;
-	position: relative;
-	top: 0;
+    font-size: 1rem;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    border-radius: 2rem;
+    padding: 0.5rem 1rem;
+    box-shadow: 0 4px 0 #ccc;
+    transition: all 0.1s;
+    position: relative;
+    top: 0;
 }
 
 button.secondary:active {
-	top: 2px;
-	box-shadow: 0 2px 0 #ccc;
+    top: 2px;
+    box-shadow: 0 2px 0 #ccc;
 }
 
 button.btn-link {
-	background: none;
-	border: none;
-	color: #0000ee;
-	text-decoration: none;
-	padding: 0.5rem 0.75rem;
-	font-size: 1rem;
+    background: none;
+    border: none;
+    color: #0000ee;
+    text-decoration: none;
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
 }
 
 button.btn-link:hover {
-	text-decoration: underline;
+    text-decoration: underline;
 }
 
 button.ok {
-	/* TODO: better green color */
-	background-color: rgb(0, 124, 80);
-	border: 1px solid rgb(0, 124, 80);
+    /* TODO: better green color */
+    background-color: rgb(0, 124, 80);
+    border: 1px solid rgb(0, 124, 80);
 }
 
 .actions {
-	display: flex;
-	flex-direction: column;
-	gap: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .btn-group-horiz {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	gap: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .tones {
-	display: flex;
-	flex-direction: row;
+    display: flex;
+    flex-direction: row;
 }
 
 .tones-button {
-	font-size: 1.5rem;
-	width: 30px;
-	color: gray;
-	padding: 0.5rem;
-	background: white;
-	border: 1px solid gray;
-	box-shadow: 0 4px 0 #ccc;
-	transition: all 0.1s;
-	position: relative;
-	top: 0;
-	margin-bottom: 4px; /* Space for the shadow */
+    font-size: 1.5rem;
+    width: 30px;
+    color: gray;
+    padding: 0.5rem;
+    background: white;
+    border: 1px solid gray;
+    box-shadow: 0 4px 0 #ccc;
+    transition: all 0.1s;
+    position: relative;
+    top: 0;
+    margin-bottom: 4px; /* Space for the shadow */
 }
 
 .tones-button:active {
-	top: 2px;
-	box-shadow: 0 2px 0 #ccc;
+    top: 2px;
+    box-shadow: 0 2px 0 #ccc;
 }
 
 .tones-button + .tones-button {
-	/* Remove left border between buttons */
-	border-left: none;
+    /* Remove left border between buttons */
+    border-left: none;
 }
 
 .tones-button:hover {
-	color: black;
+    color: black;
 }
 
 .tones .tones-button:first-child {
-	border-top-left-radius: 0.5rem;
-	border-bottom-left-radius: 0.5rem;
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
 }
 
 .tones .tones-button:last-child {
-	border-top-right-radius: 0.5rem;
-	border-bottom-right-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
 }
 
 @media (min-width: 768px) {
-	#app {
-		align-items: start;
-		max-width: 1000px;
-	}
+    #app {
+        align-items: start;
+        max-width: 1000px;
+    }
 
-	#han-container {
-		grid-template-columns: auto auto auto auto auto;
-		padding: 0.75rem;
-		justify-items: start;
-	}
+    #han-container {
+        grid-template-columns: auto auto auto auto auto;
+        padding: 0.75rem;
+        justify-items: start;
+    }
 
-	.actions {
-		flex-direction: row;
-		flex-wrap: wrap;
-		align-items: center;
-		gap: 1rem;
-		width: 100%;
-	}
+    .actions {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        width: 100%;
+    }
 }
 
 .hidden {
-	display: none;
+    display: none;
 }
